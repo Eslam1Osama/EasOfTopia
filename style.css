@@ -145,33 +145,119 @@ footer a:hover {
     }
 }
 
-/* --- Header Styles --- */
-#main-header.scrolled {
-    background-color: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-}
-
-.dark #main-header.scrolled {
-    background-color: rgba(17, 24, 39, 0.8); /* dark:bg-gray-900 with opacity */
-}
-
-/* Ensure header has proper initial state */
+/* --- Enterprise-Grade Smart Scroll-Aware Header Styles --- */
 #main-header {
+    /* Base transitions for smooth animations */
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                background-color 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                backdrop-filter 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    
+    /* Hardware acceleration for smoother animations */
+    will-change: transform, opacity, background-color, backdrop-filter;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* Header at top of page - completely transparent */
+#main-header.header-top {
     background-color: transparent;
     backdrop-filter: none;
     box-shadow: none;
+    transform: translateY(0) translateZ(0);
+    opacity: 1;
 }
 
-/* Force immediate application for scrolled state */
-#main-header.scrolled {
-    background-color: rgba(255, 255, 255, 0.8) !important;
-    backdrop-filter: blur(10px) !important;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+/* Header when visible with background */
+#main-header.header-visible {
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px) saturate(180%);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12),
+                0 4px 16px rgba(0, 0, 0, 0.08);
+    transform: translateY(0) translateZ(0);
+    opacity: 1;
 }
 
-.dark #main-header.scrolled {
-    background-color: rgba(17, 24, 39, 0.8) !important; /* dark:bg-gray-900 with opacity */
+/* Header when hidden - smooth slide up */
+#main-header.header-hidden {
+    transform: translateY(-100%) translateZ(0);
+    opacity: 0;
+}
+
+/* Final hidden state for better performance */
+#main-header.header-hidden-final {
+    transform: translateY(-100%) translateZ(0);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Transitioning state for smooth animations */
+#main-header.header-transitioning {
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                background-color 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                backdrop-filter 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Dark mode styles with enhanced backdrop */
+.dark #main-header.header-visible {
+    background-color: rgba(17, 24, 39, 0.95);
+    backdrop-filter: blur(20px) saturate(180%);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
+                0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.dark #main-header.header-top {
+    background-color: transparent;
+}
+
+/* Enhanced mobile optimizations */
+@media (max-width: 768px) {
+    #main-header {
+        transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                    background-color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                    backdrop-filter 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                    box-shadow 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                    opacity 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    #main-header.header-visible {
+        background-color: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(15px) saturate(160%);
+    }
+    
+    .dark #main-header.header-visible {
+        background-color: rgba(17, 24, 39, 0.98);
+    }
+    
+    /* Ensure mobile menu stays accessible when header is hidden */
+    #mobile-menu {
+        z-index: 60;
+    }
+}
+
+/* High-end device optimizations */
+@media (min-width: 1200px) {
+    #main-header {
+        transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                    background-color 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                    backdrop-filter 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                    box-shadow 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                    opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+}
+
+/* Reduced motion support for accessibility */
+@media (prefers-reduced-motion: reduce) {
+    #main-header {
+        transition: none;
+    }
+    
+    #main-header.header-transitioning {
+        transition: none;
+    }
 }
 
 .nav-link {
