@@ -1,4 +1,5 @@
 # EasOfTopia - Creative Platform Hub
+[![License: Proprietary](https://img.shields.io/badge/license-Proprietary-red.svg)](#license)
 
 A modern, responsive landing page serving as the central hub for EasOfTopia's creative platform ecosystem. Built with enterprise-grade architecture, featuring seamless navigation between TopiaStyler (visual editor) and Paletteniffer (color utility) with advanced PWA capabilities, dark mode support, and accessibility compliance.
 
@@ -131,16 +132,18 @@ Recommended integrations:
 - Seamless navigation between services
 - Consistent branding and UX
 
-## 📄 License
+## 🚫 License
 
-MIT License - see LICENSE file for details.
+This code is licensed under a **Proprietary License**.
 
-## 🤝 Contributing
+- **All rights reserved** by **EasOfTopia Technologies**.
+- You are **not permitted** to use, copy, modify, distribute, or sell any part of this project.
+- This repository is intended for internal/company use only.
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
+## 🏢 Ownership
+
+This software is the exclusive property of **EasOfTopia Technologies**.  
+Any attempt to reverse-engineer, reuse, or distribute the contents of this repository without prior written consent is strictly prohibited and may result in legal action.ss
 
 **Built with ❤️ by the EasOfTopia team**
 
