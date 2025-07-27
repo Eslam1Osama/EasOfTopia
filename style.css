@@ -156,6 +156,24 @@ footer a:hover {
     background-color: rgba(17, 24, 39, 0.8); /* dark:bg-gray-900 with opacity */
 }
 
+/* Ensure header has proper initial state */
+#main-header {
+    background-color: transparent;
+    backdrop-filter: none;
+    box-shadow: none;
+}
+
+/* Force immediate application for scrolled state */
+#main-header.scrolled {
+    background-color: rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(10px) !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+}
+
+.dark #main-header.scrolled {
+    background-color: rgba(17, 24, 39, 0.8) !important; /* dark:bg-gray-900 with opacity */
+}
+
 .nav-link {
     color: #374151;
     padding: 0.5rem 0.75rem;

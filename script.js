@@ -1,5 +1,24 @@
 // script.js
 
+// Immediate header state fix (runs before anything else)
+(function() {
+    // Check if page is scrolled and apply header state immediately
+    if (window.scrollY > 50) {
+        // Use requestAnimationFrame to ensure DOM is available
+        requestAnimationFrame(() => {
+            const header = document.getElementById('main-header');
+            if (header) {
+                header.style.transition = 'none';
+                header.classList.add('scrolled');
+                header.offsetHeight; // Force reflow
+                setTimeout(() => {
+                    header.style.transition = '';
+                }, 10);
+            }
+        });
+    }
+})();
+
 // Error handling for React DevTools and chrome-extension URLs
 (function() {
   const originalConsoleError = console.error;
@@ -48,6 +67,22 @@ if ('serviceWorker' in navigator) {
       });
   });
 }
+
+// Immediate header state check (runs before DOM is ready)
+(function immediateHeaderCheck() {
+    if (window.scrollY > 50) {
+        // Apply scrolled state immediately if page is scrolled
+        const header = document.getElementById('main-header');
+        if (header) {
+            header.style.transition = 'none';
+            header.classList.add('scrolled');
+            header.offsetHeight; // Force reflow
+            setTimeout(() => {
+                header.style.transition = '';
+            }, 10);
+        }
+    }
+})();
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -132,8 +167,15 @@ document.addEventListener('DOMContentLoaded', () => {
     function initializeHeaderState() {
         // Check if page was reloaded while scrolled down
         if (window.scrollY > 50) {
-            // Immediately apply scrolled state
+            // Immediately apply scrolled state with transition bypass
+            header.style.transition = 'none';
             header.classList.add('scrolled');
+            // Force reflow to ensure immediate application
+            header.offsetHeight;
+            // Restore transition after immediate application
+            setTimeout(() => {
+                header.style.transition = '';
+            }, 10);
         } else {
             header.classList.remove('scrolled');
         }
@@ -144,9 +186,34 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Force immediate check for page reloads while scrolled
     if (window.scrollY > 50) {
-        // If already scrolled, immediately apply scrolled state
+        // If already scrolled, immediately apply scrolled state with transition bypass
+        header.style.transition = 'none';
         header.classList.add('scrolled');
+        // Force reflow to ensure immediate application
+        header.offsetHeight;
+        // Restore transition after immediate application
+        setTimeout(() => {
+            header.style.transition = '';
+        }, 10);
     }
+    
+    // Additional robust check that runs multiple times to ensure header state is correct
+    const robustHeaderCheck = () => {
+        if (window.scrollY > 50 && !header.classList.contains('scrolled')) {
+            header.style.transition = 'none';
+            header.classList.add('scrolled');
+            header.offsetHeight;
+            setTimeout(() => {
+                header.style.transition = '';
+            }, 10);
+        }
+    };
+    
+    // Run robust check multiple times to ensure it catches all cases
+    setTimeout(robustHeaderCheck, 0);
+    setTimeout(robustHeaderCheck, 50);
+    setTimeout(robustHeaderCheck, 100);
+    setTimeout(robustHeaderCheck, 200);
     
     // Also check after DOM is fully loaded
     document.addEventListener('DOMContentLoaded', initializeHeaderState);
