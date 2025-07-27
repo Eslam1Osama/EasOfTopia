@@ -128,17 +128,62 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    // Check scroll position on page load
-    updateHeaderState();
+    // Enhanced header state management for page reloads
+    function initializeHeaderState() {
+        // Check if page was reloaded while scrolled down
+        if (window.scrollY > 50) {
+            // Immediately apply scrolled state
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    }
     
-    // Also check after a small delay to handle any dynamic content loading
-    setTimeout(updateHeaderState, 100);
+    // Initialize header state immediately
+    initializeHeaderState();
     
-    // Handle cases where page is loaded with hash fragments
-    window.addEventListener('load', updateHeaderState);
+    // Force immediate check for page reloads while scrolled
+    if (window.scrollY > 50) {
+        // If already scrolled, immediately apply scrolled state
+        header.classList.add('scrolled');
+    }
+    
+    // Also check after DOM is fully loaded
+    document.addEventListener('DOMContentLoaded', initializeHeaderState);
+    
+    // Check after window load to handle any dynamic content
+    window.addEventListener('load', initializeHeaderState);
+    
+    // Check after a small delay to ensure all content is rendered
+    setTimeout(initializeHeaderState, 50);
+    
+    // Check after a longer delay for any late-loading content
+    setTimeout(initializeHeaderState, 200);
     
     // Update header state on scroll
     window.addEventListener('scroll', updateHeaderState);
+    
+    // Handle scroll restoration (browser back/forward)
+    window.addEventListener('pageshow', (event) => {
+        if (event.persisted) {
+            // Page was restored from bfcache
+            setTimeout(initializeHeaderState, 100);
+        }
+    });
+    
+    // Handle page visibility changes (when tab becomes visible)
+    document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) {
+            // Page became visible, check header state
+            setTimeout(initializeHeaderState, 50);
+        }
+    });
+    
+    // Additional check for hash navigation
+    if (window.location.hash) {
+        // If page loads with a hash, check header state after a delay
+        setTimeout(initializeHeaderState, 300);
+    }
     
     // Ensure mobile menu background is properly applied
     function ensureMobileMenuBackground() {
