@@ -1,7 +1,7 @@
 {
-  "name": "EasOfTopia - Creative Tools Hub",
+  "name": "EasOfTopia - Creative Platform Hub",
   "short_name": "EasOfTopia",
-  "description": "Your central hub for EasOfTopia's powerful visual editor and color palette utility, Paletteniffer.",
+  "description": "Your central hub for EasOfTopia's creative platform ecosystem. Access TopiaStyler visual editor and Paletteniffer color utility with seamless cross-app navigation and enterprise-grade features.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
@@ -9,28 +9,20 @@
   "orientation": "portrait-primary",
   "scope": "/",
   "lang": "en",
-  "categories": ["productivity", "utilities", "design"],
+  "categories": ["productivity", "utilities", "design", "creative"],
+  "version": "1.0.0",
   "icons": [
     {
-      "src": "assets/logo_landing.png",
+      "src": "assets/logo.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "assets/logo_landing.png",
+      "src": "assets/logo.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "assets/social-preview.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "form_factor": "wide",
-      "label": "EasOfTopia Landing Page"
     }
   ],
   "shortcuts": [
@@ -50,7 +42,7 @@
       "name": "Paletteniffer",
       "short_name": "Paletteniffer",
       "description": "Open the Paletteniffer color utility",
-      "url": "https://poetbeloved.vercel.app/",
+      "url": "https://paletteniffer.vercel.app/",
       "icons": [
         {
           "src": "assets/logo_paletniffer.png",

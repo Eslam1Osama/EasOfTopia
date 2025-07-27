@@ -1,5 +1,54 @@
 // script.js
 
+// Error handling for React DevTools and chrome-extension URLs
+(function() {
+  const originalConsoleError = console.error;
+  const originalConsoleWarn = console.warn;
+  
+  console.error = function(...args) {
+    const message = args.join(' ');
+    if (message.includes('chrome-extension://') || 
+        message.includes('React DevTools') ||
+        message.includes('Warning: ReactDOM.render')) {
+      return;
+    }
+    originalConsoleError.apply(console, args);
+  };
+  
+  console.warn = function(...args) {
+    const message = args.join(' ');
+    if (message.includes('chrome-extension://') || 
+        message.includes('React DevTools')) {
+      return;
+    }
+    originalConsoleWarn.apply(console, args);
+  };
+})();
+
+// Service Worker Registration
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then((registration) => {
+        console.log('[SW] Service Worker registered successfully:', registration.scope);
+        
+        // Handle service worker updates
+        registration.addEventListener('updatefound', () => {
+          const newWorker = registration.installing;
+          newWorker.addEventListener('statechange', () => {
+            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              // New service worker available
+              console.log('[SW] New service worker available');
+            }
+          });
+        });
+      })
+      .catch((error) => {
+        console.error('[SW] Service Worker registration failed:', error);
+      });
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- Theme initialization (run first) ---
@@ -167,7 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Platform Apps Config (for navigation) ---
     const platformApps = [
       { name: 'TopiaStyler', key: 'visualEditor', url: 'https://topia-styler.vercel.app/' },
-      { name: 'Paletteniffer', key: 'paletteniffer', url: 'https://poetbeloved.vercel.app/' }
+      { name: 'Paletteniffer', key: 'paletteniffer', url: 'https://paletteniffer.vercel.app/' }
     ];
     // Mark the current app
     platformApps.forEach(app => {
@@ -193,34 +242,6 @@ document.addEventListener('DOMContentLoaded', () => {
       u.searchParams.set('theme', theme);
       return u.toString();
     }
-    
-    // Robust theme initialization - check localStorage first, then URL param
-    // (function initializeTheme() {
-    //   // First, check localStorage for existing theme preference
-    //   const storedTheme = localStorage.getItem('theme');
-      
-    //   // Then check URL parameter (takes priority if present)
-    //   const params = new URLSearchParams(window.location.search);
-    //   const urlTheme = params.get('theme');
-      
-    //   // Determine which theme to apply
-    //   let themeToApply = null;
-    //   if (urlTheme === 'dark' || urlTheme === 'light') {
-    //     // URL parameter takes priority
-    //     themeToApply = urlTheme;
-    //     localStorage.setItem('theme', urlTheme);
-    //   } else if (storedTheme === 'dark' || storedTheme === 'light') {
-    //     // Use stored preference
-    //     themeToApply = storedTheme;
-    //   } else {
-    //     // Fallback to system preference
-    //     themeToApply = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    //     localStorage.setItem('theme', themeToApply);
-    //   }
-      
-    //   // Apply the theme
-    //   document.documentElement.classList.toggle('dark', themeToApply === 'dark');
-    // })();
 
     function populateDropdown(dropdown, toggle) {
       dropdown.innerHTML = '';
@@ -352,4 +373,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     window.addEventListener('resize', syncMobileMenuOverlay);
     syncMobileMenuOverlay();
+    
+    // Global error handling
+    window.addEventListener('error', (event) => {
+      console.error('[Global Error]', event.error);
+    });
+    
+    window.addEventListener('unhandledrejection', (event) => {
+      console.error('[Unhandled Promise Rejection]', event.reason);
+    });
 });

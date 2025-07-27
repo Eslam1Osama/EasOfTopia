@@ -3,22 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EasOfTopia - Your Gateway to Creative Tools</title>
-    <meta name="description" content="The central hub for EasOfTopia's powerful visual editor and color palette utility, Paletteniffer.">
-    <meta name="keywords" content="EasOfTopia, Paletteniffer, visual editor, color palette, design tools, TopiaStyler">
-    <meta property="og:title" content="EasOfTopia - Creative Tools Hub">
-    <meta property="og:description" content="Access the EasOfTopia Visual Editor and Paletteniffer from one central landing page.">
-    <meta property="og:image" content="https://eas-of-topia.vercel.app/assets/logo_landing.png">
-    <meta property="og:url" content="https://eas-of-topia.vercel.app/">
+    <title>EasOfTopia - Creative Platform Hub</title>
+    <meta name="description" content="The central hub for EasOfTopia's creative platform ecosystem. Access TopiaStyler visual editor and Paletteniffer color utility with seamless cross-app navigation and enterprise-grade features.">
+    <meta name="keywords" content="EasOfTopia, TopiaStyler, Paletteniffer, visual editor, color palette, design tools, creative platform">
+    <meta property="og:title" content="EasOfTopia - Creative Platform Hub">
+    <meta property="og:description" content="Access the EasOfTopia creative platform ecosystem. Seamlessly navigate between TopiaStyler visual editor and Paletteniffer color utility with enterprise-grade features.">
+    <meta property="og:image" content="https://eas-of-topia.vercel.app/assets/logo.png">
+    <meta property="og:url" content="https://eas-of-topia.vercel.app">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="EasOfTopia">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="EasOfTopia - Creative Tools Hub">
-    <meta name="twitter:description" content="Access the EasOfTopia Visual Editor and Paletteniffer from one central landing page.">
-    <meta name="twitter:image" content="https://eas-of-topia.vercel.app/assets/logo_landing.png">
-    <meta name="twitter:site" content="@YourTwitterHandle">
+    <meta name="twitter:title" content="EasOfTopia - Creative Platform Hub">
+    <meta name="twitter:description" content="Access the EasOfTopia creative platform ecosystem. Seamlessly navigate between TopiaStyler visual editor and Paletteniffer color utility with enterprise-grade features.">
+    <meta name="twitter:image" content="https://eas-of-topia.vercel.app/assets/logo.png">
+    <meta name="twitter:site" content="@EasOfTopia">
+    <meta name="twitter:creator" content="@EasOfTopia">
+    <meta name="author" content="EasOfTopia Team">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#7c3aed">
+    <meta name="msapplication-TileColor" content="#38bdf8">
+    <meta name="msapplication-config" content="/browserconfig.xml">
 
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="assets/logo_landing.png" type="image/png">
+    <link rel="icon" href="assets/logo.png" type="image/png">
     <link rel="manifest" href="manifest.json">
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -31,13 +40,13 @@
     <header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center">
-                <img src="assets/logo_landing.png" alt="EasOfTopia Logo" class="h-24 w-auto max-w-[120px] mr-6 object-contain logo-animate" style="aspect-ratio:1/1;" width="120" height="120">
+                <img src="assets/logo.png" alt="EasOfTopia Logo" class="h-24 w-auto max-w-[120px] mr-6 object-contain logo-animate" style="aspect-ratio:1/1;" width="120" height="120" onerror="this.style.display='none'">
                 <span class="text-2xl font-bold text-violet-600 dark:text-violet-400">EasOfTopia</span>
             </div>
             <nav class="hidden md:flex items-center space-x-2" role="navigation" aria-label="Main Navigation">
                 <div class="relative group">
                     <button class="nav-link nav-animated flex items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-violet-400" id="services-dropdown-toggle" aria-haspopup="true" aria-expanded="false">
-                        Services
+                        Platform Apps
                         <svg class="h-4 w-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
                     </button>
                     <div class="absolute left-0 mt-2 w-56 rounded-lg shadow-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 pointer-events-none group-hover:pointer-events-auto group-focus-within:pointer-events-auto transition-all duration-200 z-50" id="services-dropdown" role="menu" aria-labelledby="services-dropdown-toggle" tabindex="-1">
@@ -49,7 +58,7 @@
                 <!-- Theme Toggle -->
                 <button id="theme-toggle" class="ml-4 p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-violet-400" aria-label="Toggle light and dark mode">
                     <svg id="theme-toggle-dark-icon" class="h-5 w-5 hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
-                    <svg id="theme-toggle-light-icon" class="h-5 w-5 hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 5.05A1 1 0 003.636 6.464l.707.707a1 1 0 001.414-1.414l-.707-.707zM3 11a1 1 0 100-2H2a1 1 0 100 2h1zM6.464 14.364l.707-.707a1 1 0 011.414 1.414l-.707.707a1 1 0 01-1.414-1.414z"></path></svg>
+                    <svg id="theme-toggle-light-icon" class="h-5 w-5 hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 5.05A1 1 0 003.636 6.464l.707.707a1 1 0 001.414-1.414l-.707-.707zM3 11a1 1 0 100-2H2a1 1 0 100 2h1zM6.464 14.364l.707-.707a1 1 0 011.414 1.414l-.707-.707a1 1 0 01-1.414-1.414z"></path></svg>
                 </button>
             </nav>
             <!-- Mobile Menu Button -->
@@ -66,7 +75,7 @@
             </button>
             <div class="w-full">
                 <button class="mobile-nav-link nav-animated flex items-center gap-1 w-full justify-between focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-400" id="mobile-services-dropdown-toggle" aria-haspopup="true" aria-expanded="false">
-                    Services
+                    Platform Apps
                     <span class="chevron"><svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></span>
                 </button>
                 <div class="w-full rounded-lg shadow-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 max-h-0 overflow-hidden transition-all duration-300" id="mobile-services-dropdown" role="menu" aria-labelledby="mobile-services-dropdown-toggle" tabindex="-1">
@@ -78,7 +87,7 @@
             <div class="flex justify-center pt-4">
                  <button id="mobile-theme-toggle" class="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none" aria-label="Toggle light and dark mode">
                     <svg id="mobile-theme-toggle-dark-icon" class="h-6 w-6 hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
-                    <svg id="mobile-theme-toggle-light-icon" class="h-6 w-6 hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 5.05A1 1 0 003.636 6.464l.707.707a1 1 0 001.414-1.414l-.707-.707zM3 11a1 1 0 100-2H2a1 1 0 100 2h1zM6.464 14.364l.707-.707a1 1 0 011.414 1.414l-.707.707a1 1 0 01-1.414-1.414z"></path></svg>
+                    <svg id="mobile-theme-toggle-light-icon" class="h-6 w-6 hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 5.05A1 1 0 003.636 6.464l.707.707a1 1 0 001.414-1.414l-.707-.707zM3 11a1 1 0 100-2H2a1 1 0 100 2h1zM6.464 14.364l.707-.707a1 1 0 011.414 1.414l-.707-.707a1 1 0 01-1.414-1.414z"></path></svg>
                 </button>
             </div>
         </div>
@@ -89,21 +98,21 @@
         <section class="hero text-center pt-32 pb-24">
             <div class="container mx-auto px-6">
                 <h1 class="hero-title text-5xl md:text-6xl font-extrabold leading-tight mb-4 animate-fade-in-down">Welcome to EasOfTopia</h1>
-                <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto mb-8 animate-fade-in-up">Your central hub for powerful, intuitive, and accessible design tools. Choose your destination below to start creating.</p>
+                <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto mb-8 animate-fade-in-up">Your central hub for the EasOfTopia creative platform ecosystem. Seamlessly navigate between powerful tools with enterprise-grade features and cross-app synchronization.</p>
             </div>
         </section>
 
         <!-- Services Section -->
         <section id="services" class="py-20 bg-gray-50 dark:bg-gray-800">
             <div class="container mx-auto px-6">
-                <h2 class="section-title text-4xl font-bold text-center mb-12 text-violet-600 dark:text-violet-400">Our Services</h2>
+                <h2 class="section-title text-4xl font-bold text-center mb-12 text-violet-600 dark:text-violet-400">Platform Applications</h2>
                 <div class="flex flex-wrap -mx-4 justify-center">
 
                     <!-- Visual Editor Card -->
                     <div class="w-full md:w-1/2 lg:w-1/3 px-4 mb-8">
                         <div class="service-card bg-white dark:bg-gray-700 rounded-lg p-8 h-full flex flex-col justify-between" data-service="visualEditor" tabindex="0">
                             <div>
-                                <img src="assets/logo_EasOfTopia.png" alt="TopiaStyler Logo" class="mx-auto mb-4 h-32 w-auto max-w-[128px] object-contain drop-shadow-2xl logo-animate" width="128" height="128" loading="lazy">
+                                <img src="assets/logo_EasOfTopia.png" alt="TopiaStyler Logo" class="mx-auto mb-4 h-32 w-auto max-w-[128px] object-contain drop-shadow-2xl logo-animate" width="128" height="128" loading="lazy" onerror="this.style.display='none'">
                                 <h3 class="text-2xl font-bold mb-4 text-violet-600 dark:text-violet-300">TopiaStyler</h3>
                                 <p class="text-gray-600 dark:text-gray-400 mb-6">A powerful, real-time collaborative visual editor. Bring your ideas to life with an intuitive drag-and-drop interface and a rich component library.</p>
                             </div>
@@ -115,7 +124,7 @@
                     <div class="w-full md:w-1/2 lg:w-1/3 px-4 mb-8">
                         <div class="service-card bg-white dark:bg-gray-700 rounded-lg p-8 h-full flex flex-col justify-between" data-service="paletteniffer" tabindex="0">
                             <div>
-                                <img src="assets/logo_paletniffer.png" alt="Paletteniffer Logo" class="mx-auto mb-4 h-32 w-auto max-w-[128px] object-contain drop-shadow-2xl logo-animate" width="128" height="128" loading="lazy">
+                                <img src="assets/logo_paletniffer.png" alt="Paletteniffer Logo" class="mx-auto mb-4 h-32 w-auto max-w-[128px] object-contain drop-shadow-2xl logo-animate" width="128" height="128" loading="lazy" onerror="this.style.display='none'">
                                 <h3 class="text-2xl font-bold mb-4 text-violet-600 dark:text-violet-300">Paletteniffer</h3>
                                 <p class="text-gray-600 dark:text-gray-400 mb-6">A smart color palette utility. Generate, explore, and export beautiful color schemes for your projects. Perfect for designers and developers.</p>
                             </div>
@@ -133,16 +142,16 @@
                 <h2 class="section-title text-4xl font-bold text-center mb-12 text-violet-600 dark:text-violet-400">Why Choose EasOfTopia?</h2>
                 <div class="grid md:grid-cols-3 gap-8 text-center">
                     <div class="feature p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                        <h3 class="text-xl font-bold mb-2 text-violet-500 dark:text-violet-300">Seamless Workflow</h3>
-                        <p class="text-gray-600 dark:text-gray-400">Switch between tools effortlessly. Your creative process, unified in one place.</p>
+                        <h3 class="text-xl font-bold mb-2 text-violet-500 dark:text-violet-300">Seamless Platform Integration</h3>
+                        <p class="text-gray-600 dark:text-gray-400">Switch between platform applications effortlessly. Your creative process, unified in one ecosystem.</p>
                     </div>
                     <div class="feature p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                        <h3 class="text-xl font-bold mb-2 text-violet-500 dark:text-violet-300">Built for Collaboration</h3>
-                        <p class="text-gray-600 dark:text-gray-400">Our tools are designed for teams. Share, comment, and create together in real-time.</p>
+                        <h3 class="text-xl font-bold mb-2 text-violet-500 dark:text-violet-300">Enterprise-Grade Features</h3>
+                        <p class="text-gray-600 dark:text-gray-400">Our platform is designed for professional teams. Share, comment, and create together in real-time with advanced collaboration tools.</p>
                     </div>
                     <div class="feature p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                        <h3 class="text-xl font-bold mb-2 text-violet-500 dark:text-violet-300">Accessible & Open</h3>
-                        <p class="text-gray-600 dark:text-gray-400">We are committed to WCAG standards and open-source principles for a better web.</p>
+                        <h3 class="text-xl font-bold mb-2 text-violet-500 dark:text-violet-300">Accessible & Open Platform</h3>
+                        <p class="text-gray-600 dark:text-gray-400">We are committed to WCAG standards and open-source principles for a better creative ecosystem.</p>
                     </div>
                 </div>
             </div>
@@ -153,11 +162,11 @@
     <footer id="contact" class="bg-gray-50 dark:bg-gray-800 pt-10 pb-6 border-t border-gray-200 dark:border-gray-700">
         <div class="container mx-auto px-6 flex flex-col md:flex-row md:justify-between md:items-center gap-8">
             <div class="flex items-center mb-6 md:mb-0">
-                <img src="assets/logo_landing.png" alt="EasOfTopia Logo" class="h-10 w-auto mr-3 object-contain" width="40" height="40">
+                <img src="assets/logo.png" alt="EasOfTopia Logo" class="h-10 w-auto mr-3 object-contain" width="40" height="40" onerror="this.style.display='none'">
                 <span class="text-xl font-bold text-violet-600 dark:text-violet-400">EasOfTopia</span>
             </div>
             <nav class="flex flex-col md:flex-row md:items-center gap-4 md:gap-8 text-base font-medium">
-                <a href="#services" class="footer-link">Services</a>
+                <a href="#services" class="footer-link">Platform Apps</a>
                 <a href="#features" class="footer-link">Features</a>
                 <a href="#contact" class="footer-link">Contact</a>
                 <a href="#" class="footer-link">Privacy Policy</a>
@@ -179,15 +188,15 @@
         <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
       <span class="section-subtitle">Get in Touch</span>
-      <h2 class="section-title mb-2">Contact Me</h2>
+      <h2 class="section-title mb-2">Contact Us</h2>
       <form id="contact-form" class="contact-form animate-stagger" novalidate>
         <input type="hidden" name="access_key" value="3007df70-0d51-41ac-b89a-c76cfc90f071">
-        <input type="hidden" name="subject" value="New Contact Form Submission from EasOfTopia">
-        <input type="hidden" name="from_name" value="EasOfTopia Visitor">
+        <input type="hidden" name="subject" value="New Contact Form Submission from EasOfTopia Platform">
+        <input type="hidden" name="from_name" value="EasOfTopia Platform Visitor">
         <div class="form-group">
           <input type="text" id="name" name="name" class="form-input" placeholder="Your Name" required minlength="2" maxlength="50" autocomplete="name" aria-describedby="help-name error-name">
           <div class="form-help" id="help-name">Enter your real name (letters and spaces only, 2-50 characters).</div>
-          <div class="form-error" id="error-name" role="alert" aria-live="polite">EasOfTopia Visitor</div>
+          <div class="form-error" id="error-name" role="alert" aria-live="polite">EasOfTopia Platform Visitor</div>
         </div>
         <div class="form-group">
           <input type="email" id="email" name="email" class="form-input" placeholder="Your Email" required maxlength="100" autocomplete="email" aria-describedby="help-email error-email">
@@ -204,7 +213,6 @@
       </form>
     </div>
     <script src="contact-form.js"></script>
-    <script src="config.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

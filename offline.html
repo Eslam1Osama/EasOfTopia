@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline - EasOfTopia</title>
+    <meta name="description" content="You are currently offline. EasOfTopia platform requires an internet connection to function properly.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="assets/logo.png" type="image/png">
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 font-sans transition-colors duration-500">
+    <div class="min-h-screen flex items-center justify-center px-6">
+        <div class="max-w-md w-full text-center">
+            <div class="mb-8">
+                <img src="assets/logo.png" alt="EasOfTopia Logo" class="mx-auto h-24 w-auto mb-6 object-contain" onerror="this.style.display='none'">
+                <h1 class="text-3xl font-bold text-violet-600 dark:text-violet-400 mb-4">You're Offline</h1>
+                <p class="text-lg text-gray-600 dark:text-gray-400 mb-6">The EasOfTopia platform requires an internet connection to access its features and applications.</p>
+            </div>
+            
+            <div class="space-y-4">
+                <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
+                    <h2 class="text-xl font-semibold text-violet-600 dark:text-violet-400 mb-3">What you can do:</h2>
+                    <ul class="text-left space-y-2 text-gray-600 dark:text-gray-400">
+                        <li class="flex items-start">
+                            <span class="text-violet-500 mr-2">•</span>
+                            Check your internet connection
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-violet-500 mr-2">•</span>
+                            Try refreshing the page
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-violet-500 mr-2">•</span>
+                            Contact support if the issue persists
+                        </li>
+                    </ul>
+                </div>
+                
+                <button onclick="window.location.reload()" class="w-full bg-gradient-to-r from-violet-500 to-fuchsia-500 hover:from-violet-600 hover:to-fuchsia-600 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 shadow-lg">
+                    Try Again
+                </button>
+            </div>
+            
+            <div class="mt-8 text-sm text-gray-500 dark:text-gray-400">
+                <p>&copy; 2025 EasOfTopia. All Rights Reserved.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
