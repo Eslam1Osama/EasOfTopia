@@ -736,14 +736,64 @@ html {
 
 /* === RESPONSIVE DISPLAY CONTROL === */
 /* Show mobile menu only on mobile screens */
+/* === EXTREMELY RESPONSIVE MOBILE MENU BREAKPOINTS === */
+
+/* Large tablets and small desktops */
+@media (max-width: 1024px) {
+    #mobile-menu {
+        display: flex !important;
+        width: 18rem !important;
+        max-width: 80vw !important;
+    }
+}
+
+/* Standard tablets */
 @media (max-width: 768px) {
     #mobile-menu {
         display: flex !important;
+        width: 16rem !important;
+        max-width: 75vw !important;
+    }
+}
+
+/* Large phones */
+@media (max-width: 640px) {
+    #mobile-menu {
+        display: flex !important;
+        width: 14rem !important;
+        max-width: 70vw !important;
+    }
+}
+
+/* Medium phones */
+@media (max-width: 480px) {
+    #mobile-menu {
+        display: flex !important;
+        width: 12rem !important;
+        max-width: 65vw !important;
+    }
+}
+
+/* Small phones */
+@media (max-width: 375px) {
+    #mobile-menu {
+        display: flex !important;
+        width: 10rem !important;
+        max-width: 60vw !important;
+    }
+}
+
+/* Extra small phones */
+@media (max-width: 320px) {
+    #mobile-menu {
+        display: flex !important;
+        width: 8rem !important;
+        max-width: 55vw !important;
     }
 }
 
 /* Hide mobile menu on larger screens */
-@media (min-width: 769px) {
+@media (min-width: 1025px) {
     #mobile-menu {
         display: none !important;
     }
@@ -807,7 +857,17 @@ html {
     background-color: rgba(0, 0, 0, 0.8) !important;
 }
 
-/* Show overlay only on mobile */
+/* === EXTREMELY RESPONSIVE OVERLAY BREAKPOINTS === */
+
+/* Large tablets and small desktops */
+@media (max-width: 1024px) {
+    #mobile-menu-overlay {
+        display: block !important;
+        right: 18rem !important;
+    }
+}
+
+/* Standard tablets */
 @media (max-width: 768px) {
     #mobile-menu-overlay {
         display: block !important;
@@ -815,21 +875,40 @@ html {
     }
 }
 
-/* Adjust overlay for smaller screens */
+/* Large phones */
 @media (max-width: 640px) {
     #mobile-menu-overlay {
+        display: block !important;
         right: 14rem !important;
     }
 }
 
+/* Medium phones */
 @media (max-width: 480px) {
     #mobile-menu-overlay {
+        display: block !important;
         right: 12rem !important;
     }
 }
 
+/* Small phones */
+@media (max-width: 375px) {
+    #mobile-menu-overlay {
+        display: block !important;
+        right: 10rem !important;
+    }
+}
+
+/* Extra small phones */
+@media (max-width: 320px) {
+    #mobile-menu-overlay {
+        display: block !important;
+        right: 8rem !important;
+    }
+}
+
 /* Hide overlay on larger screens */
-@media (min-width: 769px) {
+@media (min-width: 1025px) {
     #mobile-menu-overlay {
         display: none !important;
     }
@@ -853,6 +932,68 @@ html {
     cursor: pointer !important;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* === EXTREMELY RESPONSIVE MOBILE CLOSE BUTTON === */
+
+/* Large tablets and small desktops */
+@media (max-width: 1024px) {
+    #mobile-menu-close {
+        width: 2.5rem !important;
+        height: 2.5rem !important;
+        top: 1rem !important;
+        right: 1rem !important;
+    }
+}
+
+/* Standard tablets */
+@media (max-width: 768px) {
+    #mobile-menu-close {
+        width: 2.5rem !important;
+        height: 2.5rem !important;
+        top: 1rem !important;
+        right: 1rem !important;
+    }
+}
+
+/* Large phones */
+@media (max-width: 640px) {
+    #mobile-menu-close {
+        width: 2.25rem !important;
+        height: 2.25rem !important;
+        top: 0.875rem !important;
+        right: 0.875rem !important;
+    }
+}
+
+/* Medium phones */
+@media (max-width: 480px) {
+    #mobile-menu-close {
+        width: 2rem !important;
+        height: 2rem !important;
+        top: 0.75rem !important;
+        right: 0.75rem !important;
+    }
+}
+
+/* Small phones */
+@media (max-width: 375px) {
+    #mobile-menu-close {
+        width: 1.875rem !important;
+        height: 1.875rem !important;
+        top: 0.625rem !important;
+        right: 0.625rem !important;
+    }
+}
+
+/* Extra small phones */
+@media (max-width: 320px) {
+    #mobile-menu-close {
+        width: 1.75rem !important;
+        height: 1.75rem !important;
+        top: 0.5rem !important;
+        right: 0.5rem !important;
+    }
 }
 
 #mobile-menu-close:hover {
@@ -893,6 +1034,56 @@ html {
     display: block !important;
     width: 100% !important;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* === EXTREMELY RESPONSIVE MOBILE NAVIGATION LINKS === */
+
+/* Large tablets and small desktops */
+@media (max-width: 1024px) {
+    #mobile-menu .mobile-nav-link {
+        font-size: 1rem !important;
+        padding: 0.5rem 0.75rem !important;
+    }
+}
+
+/* Standard tablets */
+@media (max-width: 768px) {
+    #mobile-menu .mobile-nav-link {
+        font-size: 1rem !important;
+        padding: 0.5rem 0.75rem !important;
+    }
+}
+
+/* Large phones */
+@media (max-width: 640px) {
+    #mobile-menu .mobile-nav-link {
+        font-size: 0.95rem !important;
+        padding: 0.5rem 0.75rem !important;
+    }
+}
+
+/* Medium phones */
+@media (max-width: 480px) {
+    #mobile-menu .mobile-nav-link {
+        font-size: 0.9rem !important;
+        padding: 0.5rem 0.75rem !important;
+    }
+}
+
+/* Small phones */
+@media (max-width: 375px) {
+    #mobile-menu .mobile-nav-link {
+        font-size: 0.85rem !important;
+        padding: 0.5rem 0.75rem !important;
+    }
+}
+
+/* Extra small phones */
+@media (max-width: 320px) {
+    #mobile-menu .mobile-nav-link {
+        font-size: 0.8rem !important;
+        padding: 0.5rem 0.75rem !important;
+    }
 }
 
 #mobile-menu .mobile-nav-link:hover {
@@ -965,6 +1156,56 @@ html {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4) !important;
 }
 
+/* === EXTREMELY RESPONSIVE MOBILE THEME TOGGLE === */
+
+/* Large tablets and small desktops */
+@media (max-width: 1024px) {
+    #mobile-theme-toggle {
+        width: 2.5rem !important;
+        height: 2.5rem !important;
+    }
+}
+
+/* Standard tablets */
+@media (max-width: 768px) {
+    #mobile-theme-toggle {
+        width: 2.5rem !important;
+        height: 2.5rem !important;
+    }
+}
+
+/* Large phones */
+@media (max-width: 640px) {
+    #mobile-theme-toggle {
+        width: 2.25rem !important;
+        height: 2.25rem !important;
+    }
+}
+
+/* Medium phones */
+@media (max-width: 480px) {
+    #mobile-theme-toggle {
+        width: 2rem !important;
+        height: 2rem !important;
+    }
+}
+
+/* Small phones */
+@media (max-width: 375px) {
+    #mobile-theme-toggle {
+        width: 1.875rem !important;
+        height: 1.875rem !important;
+    }
+}
+
+/* Extra small phones */
+@media (max-width: 320px) {
+    #mobile-theme-toggle {
+        width: 1.75rem !important;
+        height: 1.75rem !important;
+    }
+}
+
 /* === MOBILE MENU BUTTON === */
 #mobile-menu-button {
     display: none !important;
@@ -976,13 +1217,58 @@ body.mobile-menu-open {
     overflow: hidden !important;
 }
 
-@media (max-width: 768px) {
+/* === EXTREMELY RESPONSIVE MOBILE MENU BUTTON === */
+
+/* Large tablets and small desktops */
+@media (max-width: 1024px) {
     #mobile-menu-button {
         display: block !important;
+        padding: 0.5rem !important;
     }
 }
 
-@media (min-width: 769px) {
+/* Standard tablets */
+@media (max-width: 768px) {
+    #mobile-menu-button {
+        display: block !important;
+        padding: 0.5rem !important;
+    }
+}
+
+/* Large phones */
+@media (max-width: 640px) {
+    #mobile-menu-button {
+        display: block !important;
+        padding: 0.5rem !important;
+    }
+}
+
+/* Medium phones */
+@media (max-width: 480px) {
+    #mobile-menu-button {
+        display: block !important;
+        padding: 0.375rem !important;
+    }
+}
+
+/* Small phones */
+@media (max-width: 375px) {
+    #mobile-menu-button {
+        display: block !important;
+        padding: 0.375rem !important;
+    }
+}
+
+/* Extra small phones */
+@media (max-width: 320px) {
+    #mobile-menu-button {
+        display: block !important;
+        padding: 0.25rem !important;
+    }
+}
+
+/* Hide mobile menu button on larger screens */
+@media (min-width: 1025px) {
     #mobile-menu-button {
         display: none !important;
     }

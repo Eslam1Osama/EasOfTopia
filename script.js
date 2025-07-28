@@ -186,7 +186,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Check if we're on mobile screen
     function isMobileScreen() {
-        return window.innerWidth <= 768;
+        return window.innerWidth <= 1024;
+    }
+    
+    function getScreenSize() {
+        const width = window.innerWidth;
+        if (width <= 320) return 'xs';
+        if (width <= 375) return 'sm';
+        if (width <= 480) return 'md';
+        if (width <= 640) return 'lg';
+        if (width <= 768) return 'xl';
+        if (width <= 1024) return '2xl';
+        return 'desktop';
     }
 
     function openMobileMenu() {
@@ -273,11 +284,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // Handle window resize to ensure mobile menu behaves correctly
+    let resizeTimeout;
     window.addEventListener('resize', () => {
-        if (!isMobileScreen()) {
-            // If screen is now desktop size, close mobile menu
-            closeMobileMenu();
-        }
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            const currentScreenSize = getScreenSize();
+            console.log('[Mobile Menu] Screen size changed to:', currentScreenSize);
+            
+            if (!isMobileScreen()) {
+                // If screen is now desktop size, close mobile menu
+                closeMobileMenu();
+            }
+            
+            // Update mobile menu button visibility
+            if (mobileMenuButton) {
+                if (isMobileScreen()) {
+                    mobileMenuButton.style.display = 'block';
+                } else {
+                    mobileMenuButton.style.display = 'none';
+                }
+            }
+            
+            // Adjust mobile menu width for new screen size
+            adjustMobileMenuForScreenSize();
+        }, 100); // Debounce resize events
     });
     // Close mobile menu when a link is clicked (robust for nested elements)
     mobileMenu.addEventListener('click', (e) => {
@@ -516,8 +546,44 @@ document.addEventListener('DOMContentLoaded', () => {
             mobileMenuOverlay.classList.add('opacity-0', 'pointer-events-none');
         }
     }
+    
+    function adjustMobileMenuForScreenSize() {
+        const screenSize = getScreenSize();
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        if (mobileMenu) {
+            // Apply appropriate width based on screen size
+            switch (screenSize) {
+                case 'xs':
+                    mobileMenu.style.width = '8rem';
+                    break;
+                case 'sm':
+                    mobileMenu.style.width = '10rem';
+                    break;
+                case 'md':
+                    mobileMenu.style.width = '12rem';
+                    break;
+                case 'lg':
+                    mobileMenu.style.width = '14rem';
+                    break;
+                case 'xl':
+                    mobileMenu.style.width = '16rem';
+                    break;
+                case '2xl':
+                    mobileMenu.style.width = '18rem';
+                    break;
+                default:
+                    mobileMenu.style.width = '16rem';
+            }
+            
+            console.log('[Mobile Menu] Adjusted width for screen size:', screenSize);
+        }
+    }
     window.addEventListener('resize', syncMobileMenuOverlay);
     syncMobileMenuOverlay();
+    
+    // Initialize mobile menu responsiveness
+    adjustMobileMenuForScreenSize();
     
     // Global error handling
     window.addEventListener('error', (event) => {
