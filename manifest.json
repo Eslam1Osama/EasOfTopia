@@ -2,12 +2,12 @@
   "name": "EasOfTopia - Creative Platform Hub",
   "short_name": "EasOfTopia",
   "description": "Your central hub for EasOfTopia's creative platform ecosystem. Access TopiaStyler visual editor and Paletteniffer color utility with seamless cross-app navigation and enterprise-grade features.",
-  "start_url": "./",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#7c3aed",
   "orientation": "portrait-primary",
-  "scope": "./",
+  "scope": "/",
   "lang": "en",
   "categories": ["productivity", "utilities", "design", "creative"],
   "version": "1.0.0",
@@ -30,7 +30,7 @@
       "name": "Platform Apps",
       "short_name": "Apps",
       "description": "View platform applications",
-      "url": "./#services",
+      "url": "/#services",
       "icons": [
         {
           "src": "assets/logo.png",
@@ -43,7 +43,7 @@
       "name": "Contact",
       "short_name": "Contact", 
       "description": "Get in touch with us",
-      "url": "./#contact",
+      "url": "/#contact",
       "icons": [
         {
           "src": "assets/logo.png",

@@ -4,19 +4,19 @@
 
 const CACHE_NAME = 'eas-of-topia-v1.0.0';
 const STATIC_FILES = [
-  '/',
-  '/index.html',
-  '/style.css',
-  '/script.js',
-  '/contact-form.js',
-  '/manifest.json',
-  '/browserconfig.xml',
-  '/sitemap.xml',
-  '/robots.txt',
-  '/offline.html',
-  '/assets/logo.png',
-  '/assets/logo_EasOfTopia.png',
-  '/assets/logo_paletniffer.png'
+  './',
+  './index.html',
+  './style.css',
+  './script.js',
+  './contact-form.js',
+  './manifest.json',
+  './browserconfig.xml',
+  './sitemap.xml',
+  './robots.txt',
+  './offline.html',
+  './assets/logo.png',
+  './assets/logo_EasOfTopia.png',
+  './assets/logo_paletniffer.png'
 ];
 
 // Error handling for unsupported URL schemes
@@ -96,7 +96,7 @@ self.addEventListener('fetch', (event) => {
         })
         .catch(() => {
           // Return offline page for navigation failures
-          return caches.match('/offline.html');
+          return caches.match('./offline.html');
         })
     );
     return;
