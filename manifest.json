@@ -27,28 +27,26 @@
   ],
   "shortcuts": [
     {
-      "name": "Platform Apps",
-      "short_name": "Apps",
-      "description": "View platform applications",
-      "url": "/#services",
+      "name": "TopiaStyler",
+      "short_name": "TopiaStyler",
+      "description": "Launch the TopiaStyler visual editor",
+      "url": "https://topia-styler.vercel.app/",
       "icons": [
         {
-          "src": "assets/logo.png",
-          "sizes": "96x96",
-          "type": "image/png"
+          "src": "assets/logo_EasOfTopia.png",
+          "sizes": "96x96"
         }
       ]
     },
     {
-      "name": "Contact",
-      "short_name": "Contact", 
-      "description": "Get in touch with us",
-      "url": "/#contact",
+      "name": "Paletteniffer",
+      "short_name": "Paletteniffer",
+      "description": "Open the Paletteniffer color utility",
+      "url": "https://paletteniffer.vercel.app/",
       "icons": [
         {
-          "src": "assets/logo.png",
-          "sizes": "96x96",
-          "type": "image/png"
+          "src": "assets/logo_paletniffer.png",
+          "sizes": "96x96"
         }
       ]
     }
