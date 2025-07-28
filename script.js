@@ -116,143 +116,92 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- Enterprise-Grade Smart Scroll-Aware Header ---
+    // --- Sticky Header on Scroll ---
     const header = document.getElementById('main-header');
-    let lastScrollY = window.scrollY;
-    let lastScrollTime = Date.now();
-    let scrollDirection = 'none';
-    let scrollVelocity = 0;
-    let headerState = 'top'; // 'top', 'visible', 'hidden', 'transitioning'
-    let animationFrameId = null;
-    let scrollTimeout = null;
     
-    // Enhanced scroll direction and velocity detection
-    function calculateScrollMetrics() {
-        const currentScrollY = window.scrollY;
-        const currentTime = Date.now();
-        const timeDelta = currentTime - lastScrollTime;
-        
-        if (timeDelta > 0) {
-            scrollVelocity = (currentScrollY - lastScrollY) / timeDelta;
-        }
-        
-        // Determine scroll direction with velocity threshold
-        if (Math.abs(scrollVelocity) > 0.5) {
-            scrollDirection = scrollVelocity > 0 ? 'down' : 'up';
-        }
-        
-        lastScrollY = currentScrollY;
-        lastScrollTime = currentTime;
-        
-        return { currentScrollY, scrollDirection, scrollVelocity };
-    }
-    
-    // Smooth header state transitions
+    // Enterprise-grade header state management with zero flicker
     function updateHeaderState() {
-        const { currentScrollY, scrollDirection, scrollVelocity } = calculateScrollMetrics();
+        if (!header) return;
         
-        // Clear existing timeouts and animations
-        if (scrollTimeout) {
-            clearTimeout(scrollTimeout);
-            scrollTimeout = null;
-        }
-        if (animationFrameId) {
-            cancelAnimationFrame(animationFrameId);
-        }
+        const scrollY = window.scrollY;
+        const isScrolled = scrollY > 50;
+        const currentState = header.getAttribute('data-header-state');
+        const newState = isScrolled ? 'scrolled' : 'initial';
         
-        // Determine new header state
-        let newState = headerState;
-        
-        if (currentScrollY <= 30) {
-            // At the top - always show transparent header
-            newState = 'top';
-        } else if (scrollDirection === 'up' && currentScrollY > 30) {
-            // Scrolling up - show header immediately
-            newState = 'visible';
-        } else if (scrollDirection === 'down' && currentScrollY > 100) {
-            // Scrolling down with significant scroll - hide header
-            newState = 'hidden';
-        } else if (currentScrollY > 30 && scrollDirection === 'none') {
-            // No significant scroll - maintain current state
-            newState = headerState === 'top' ? 'visible' : headerState;
-        }
-        
-        // Apply state changes with smooth transitions
-        if (newState !== headerState) {
-            headerState = newState;
-            applyHeaderState(newState, scrollVelocity);
+        // Only update if state actually changed (performance optimization)
+        if (currentState !== newState) {
+            header.setAttribute('data-header-state', newState);
+            
+            if (isScrolled) {
+                header.classList.add('scrolled');
+                document.documentElement.classList.add('header-scrolled');
+            } else {
+                header.classList.remove('scrolled');
+                document.documentElement.classList.remove('header-scrolled');
+            }
+            
+            // Performance monitoring
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'header_state_change', {
+                    event_category: 'performance',
+                    event_label: newState,
+                    value: scrollY
+                });
+            }
         }
     }
     
-    // Apply header state with smooth animations
-    function applyHeaderState(state, velocity = 0) {
-        // Remove all state classes
-        header.classList.remove('header-top', 'header-visible', 'header-hidden', 'header-transitioning');
-        
-        // Add new state class
-        header.classList.add(`header-${state}`);
-        
-        // Add transition class for smooth animations
-        header.classList.add('header-transitioning');
-        
-        // Remove transition class after animation completes
-        setTimeout(() => {
-            header.classList.remove('header-transitioning');
-        }, 400);
-        
-        // Handle scroll down with delay for better UX
-        if (state === 'hidden' && scrollDirection === 'down') {
-            scrollTimeout = setTimeout(() => {
-                if (headerState === 'hidden' && scrollDirection === 'down') {
-                    header.classList.add('header-hidden-final');
-                }
-            }, 100);
-        } else {
-            header.classList.remove('header-hidden-final');
+    // Critical: Check scroll position immediately on script load
+    // This prevents any visual flicker by applying state before DOM is ready
+    if (typeof window !== 'undefined') {
+        // Immediate check without waiting for DOM
+        if (window.scrollY > 50) {
+            document.documentElement.classList.add('header-scrolled');
         }
     }
     
-    // Initialize header state
-    function initializeHeader() {
+    // Enhanced initialization with multiple fallbacks
+    function initializeHeaderState() {
+        // Primary check
         updateHeaderState();
         
-        // Handle initial load with hash fragments
-        if (window.location.hash) {
-            setTimeout(updateHeaderState, 500);
-        }
-    }
-    
-    // Enhanced scroll event handler with performance optimization
-    let scrollThrottle = null;
-    function handleScroll() {
-        if (scrollThrottle) return;
+        // Secondary check after a minimal delay for edge cases
+        requestAnimationFrame(updateHeaderState);
         
-        scrollThrottle = setTimeout(() => {
-            animationFrameId = requestAnimationFrame(() => {
-                updateHeaderState();
-                scrollThrottle = null;
-            });
-        }, 8); // ~120fps throttling
+        // Tertiary check for dynamic content loading
+        setTimeout(updateHeaderState, 50);
+        
+        // Final check after all resources are loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', updateHeaderState);
+        }
+        
+        // Handle cases where page is loaded with hash fragments
+        window.addEventListener('load', updateHeaderState);
     }
     
-    // Initialize header
-    initializeHeader();
+    // Initialize header state with enterprise-grade error handling
+    try {
+        initializeHeaderState();
+    } catch (error) {
+        console.warn('[Header] Initialization error:', error);
+        // Fallback: ensure header state is correct after a delay
+        setTimeout(updateHeaderState, 100);
+    }
     
-    // Event listeners
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('load', initializeHeader);
-    window.addEventListener('resize', () => {
-        if (animationFrameId) {
-            cancelAnimationFrame(animationFrameId);
+    // Optimized scroll event handler with throttling
+    let scrollTimeout;
+    window.addEventListener('scroll', () => {
+        if (scrollTimeout) {
+            clearTimeout(scrollTimeout);
         }
-        animationFrameId = requestAnimationFrame(updateHeaderState);
-    });
+        scrollTimeout = setTimeout(updateHeaderState, 10); // 10ms throttle for 60fps
+    }, { passive: true });
     
-    // Cleanup on page unload
-    window.addEventListener('beforeunload', () => {
-        if (scrollTimeout) clearTimeout(scrollTimeout);
-        if (animationFrameId) cancelAnimationFrame(animationFrameId);
-    });
+    // Handle resize events that might affect scroll position
+    window.addEventListener('resize', () => {
+        requestAnimationFrame(updateHeaderState);
+    }, { passive: true });
     
     // Ensure mobile menu background is properly applied
     function ensureMobileMenuBackground() {
