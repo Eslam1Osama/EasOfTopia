@@ -5,20 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Offline - EasOfTopia</title>
     <meta name="description" content="You are currently offline. EasOfTopia platform requires an internet connection to function properly.">
+    <meta name="theme-color" content="#7c3aed">
+    <meta name="msapplication-TileColor" content="#7c3aed">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="assets/logo.png" type="image/png">
+    <link rel="manifest" href="manifest.json">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
 </head>
 <body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 font-sans transition-colors duration-500">
     <div class="min-h-screen flex items-center justify-center px-6">
         <div class="max-w-md w-full text-center">
             <div class="mb-8">
-                <img src="assets/logo.png" alt="EasOfTopia Logo" class="mx-auto h-24 w-auto mb-6 object-contain" onerror="this.style.display='none'">
+                <img src="assets/logo.png" alt="EasOfTopia Logo" class="mx-auto h-24 w-auto mb-6 object-contain logo-animate" onerror="this.style.display='none'">
                 <h1 class="text-3xl font-bold text-violet-600 dark:text-violet-400 mb-4">You're Offline</h1>
                 <p class="text-lg text-gray-600 dark:text-gray-400 mb-6">The EasOfTopia platform requires an internet connection to access its features and applications.</p>
             </div>
             
             <div class="space-y-4">
-                <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
+                <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
                     <h2 class="text-xl font-semibold text-violet-600 dark:text-violet-400 mb-3">What you can do:</h2>
                     <ul class="text-left space-y-2 text-gray-600 dark:text-gray-400">
                         <li class="flex items-start">
@@ -33,18 +42,47 @@
                             <span class="text-violet-500 mr-2">•</span>
                             Contact support if the issue persists
                         </li>
+                        <li class="flex items-start">
+                            <span class="text-violet-500 mr-2">•</span>
+                            Check if the service is temporarily unavailable
+                        </li>
                     </ul>
                 </div>
                 
-                <button onclick="window.location.reload()" class="w-full bg-gradient-to-r from-violet-500 to-fuchsia-500 hover:from-violet-600 hover:to-fuchsia-600 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 shadow-lg">
-                    Try Again
-                </button>
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <button onclick="window.location.reload()" class="flex-1 bg-gradient-to-r from-violet-500 to-fuchsia-500 hover:from-violet-600 hover:to-fuchsia-600 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 shadow-lg transform hover:scale-105 active:scale-95">
+                        Try Again
+                    </button>
+                    <button onclick="window.history.back()" class="flex-1 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 font-bold py-3 px-6 rounded-lg transition-all duration-300 shadow-lg transform hover:scale-105 active:scale-95">
+                        Go Back
+                    </button>
+                </div>
             </div>
             
             <div class="mt-8 text-sm text-gray-500 dark:text-gray-400">
                 <p>&copy; 2025 EasOfTopia. All Rights Reserved.</p>
+                <p class="mt-2 text-xs">Version 1.1.0 - Enhanced Mobile Experience</p>
             </div>
         </div>
     </div>
+    
+    <script>
+        // Check for online status and auto-refresh when connection is restored
+        window.addEventListener('online', () => {
+            window.location.reload();
+        });
+        
+        // Add some interactive feedback
+        document.addEventListener('DOMContentLoaded', () => {
+            const tryAgainBtn = document.querySelector('button[onclick="window.location.reload()"]');
+            const goBackBtn = document.querySelector('button[onclick="window.history.back()"]');
+            
+            // Add loading state to try again button
+            tryAgainBtn.addEventListener('click', () => {
+                tryAgainBtn.innerHTML = '<svg class="animate-spin h-5 w-5 mx-auto" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>';
+                tryAgainBtn.disabled = true;
+            });
+        });
+    </script>
 </body>
 </html> 

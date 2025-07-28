@@ -1,8 +1,8 @@
 // EasOfTopia Platform Service Worker
-// Version: 1.1.0 - Enhanced for cross-server compatibility
-// Cache Name: eas-of-topia-v1.1.0
+// Version: 1.2.0 - Enhanced for mobile performance and Vercel deployment
+// Cache Name: eas-of-topia-v1.2.0
 
-const CACHE_NAME = 'eas-of-topia-v1.1.0';
+const CACHE_NAME = 'eas-of-topia-v1.2.0';
 const STATIC_FILES = [
   '/',
   '/index.html',
@@ -46,13 +46,18 @@ function shouldCacheRequest(request) {
     return STATIC_FILES.some(file => url.pathname.includes(file));
   }
   
+  // For Vercel deployment, cache more aggressively
+  if (url.hostname === 'eas-of-topia.vercel.app') {
+    return true;
+  }
+  
   // For other contexts, cache more aggressively
   return true;
 }
 
 // Install event - cache static files with enhanced error handling
 self.addEventListener('install', (event) => {
-  console.log('[SW] Installing service worker...');
+  console.log('[SW] Installing service worker v1.2.0...');
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => {
@@ -72,7 +77,7 @@ self.addEventListener('install', (event) => {
 
 // Activate event - clean up old caches with enhanced cleanup
 self.addEventListener('activate', (event) => {
-  console.log('[SW] Activating service worker...');
+  console.log('[SW] Activating service worker v1.2.0...');
   event.waitUntil(
     caches.keys()
       .then((cacheNames) => {
@@ -141,6 +146,31 @@ self.addEventListener('fetch', (event) => {
       );
       return;
     }
+  }
+  
+  // Enhanced handling for Vercel deployment
+  if (url.hostname === 'eas-of-topia.vercel.app') {
+    // For Vercel, use network-first strategy for better performance
+    event.respondWith(
+      fetch(request)
+        .then((response) => {
+          // Cache successful responses
+          if (response.status === 200 && shouldCacheRequest(request)) {
+            const responseClone = response.clone();
+            caches.open(CACHE_NAME)
+              .then((cache) => cache.put(request, responseClone))
+              .catch((error) => {
+                console.error('[SW] Failed to cache response:', error);
+              });
+          }
+          return response;
+        })
+        .catch(() => {
+          // Fallback to cache
+          return caches.match(request);
+        })
+    );
+    return;
   }
   
   // Handle navigation requests
@@ -217,5 +247,13 @@ self.addEventListener('message', (event) => {
           console.log('[SW] Cache cleared successfully');
         })
     );
+  }
+  
+  // Handle version check requests
+  if (event.data && event.data.type === 'GET_VERSION') {
+    event.ports[0].postMessage({
+      version: '1.2.0',
+      cacheName: CACHE_NAME
+    });
   }
 }); 
