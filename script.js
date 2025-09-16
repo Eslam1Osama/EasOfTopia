@@ -112,12 +112,19 @@ document.addEventListener('DOMContentLoaded', () => {
       document.documentElement.classList.toggle('dark', themeToApply === 'dark');
     })();
 
-    // --- Theme Toggle Functionality ---
+    // --- Enhanced Theme Toggle Functionality with Seamless Animation Preservation ---
     const themeToggleBtns = document.querySelectorAll('#theme-toggle');
     const darkIcon = document.getElementById('theme-toggle-dark-icon');
     const lightIcon = document.getElementById('theme-toggle-light-icon');
     const mobileDarkIcon = document.getElementById('mobile-theme-toggle-dark-icon');
     const mobileLightIcon = document.getElementById('mobile-theme-toggle-light-icon');
+
+    // Wave animation state tracking for seamless theme switching
+    let waveAnimationState = {
+        primaryStartTime: 0,
+        secondaryStartTime: 0,
+        isInitialized: false
+    };
 
     const updateIcons = (isDarkMode) => {
         if (isDarkMode) {
@@ -133,17 +140,57 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    // Initialize wave animation timing for seamless theme switching
+    const initializeWaveAnimationTiming = () => {
+        if (!waveAnimationState.isInitialized) {
+            const currentTime = Date.now();
+            waveAnimationState.primaryStartTime = currentTime;
+            waveAnimationState.secondaryStartTime = currentTime;
+            waveAnimationState.isInitialized = true;
+            
+            // Store timing in CSS custom properties for seamless theme switching
+            document.documentElement.style.setProperty('--wave-primary-start', currentTime.toString());
+            document.documentElement.style.setProperty('--wave-secondary-start', currentTime.toString());
+        }
+    };
+
+    // Function to preserve wave animation state during theme switch
+    const preserveWaveAnimationState = () => {
+        // Initialize timing if not already done
+        initializeWaveAnimationTiming();
+        
+        // The unified animation system automatically preserves state
+        // since both light and dark modes use the same animation names
+        // and the browser maintains the animation timeline continuity
+    };
+
+    // Function to restore wave animation state after theme switch
+    const restoreWaveAnimationState = () => {
+        // With unified animations, the browser automatically continues
+        // the animation from its current position without restart
+        // No additional restoration needed
+    };
+
     // Set initial icon state based on current theme
     updateIcons(document.documentElement.classList.contains('dark'));
+    
+    // Initialize wave animation timing for seamless theme switching
+    initializeWaveAnimationTiming();
 
     themeToggleBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
             // Prevent event bubbling to avoid conflicts
             e.stopPropagation();
             
+            // Preserve current wave animation state before theme switch
+            preserveWaveAnimationState();
+            
             const isDarkMode = document.documentElement.classList.toggle('dark');
             localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
             updateIcons(isDarkMode);
+            
+            // Restore wave animation state after theme switch
+            restoreWaveAnimationState();
         });
     });
 
