@@ -66,7 +66,7 @@
       "name": "TopiaStyler",
       "short_name": "TopiaStyler",
       "description": "Launch the TopiaStyler visual editor",
-      "url": "https://topia-styler.vercel.app/",
+      "url": "/#services",
       "icons": [
         {
           "src": "assets/logo_EasOfTopia.png",
@@ -78,10 +78,22 @@
       "name": "Paletteniffer",
       "short_name": "Paletteniffer",
       "description": "Open the Paletteniffer color utility",
-      "url": "https://paletteniffer.vercel.app/",
+      "url": "/#services",
       "icons": [
         {
           "src": "assets/logo_paletniffer.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Palettinum",
+      "short_name": "Palettinum",
+      "description": "Open the Palettinum color palette generator",
+      "url": "/#services",
+      "icons": [
+        {
+          "src": "assets/Palettinum.png",
           "sizes": "96x96"
         }
       ]

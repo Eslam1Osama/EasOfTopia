@@ -32,14 +32,12 @@ if ('serviceWorker' in navigator) {
     // Enhanced service worker registration with server context awareness
     navigator.serviceWorker.register('/sw.js')
       .then((registration) => {
-        console.log('[SW] Service Worker registered successfully:', registration.scope);
-        
         // Handle service worker updates
         registration.addEventListener('updatefound', () => {
           const newWorker = registration.installing;
           newWorker.addEventListener('statechange', () => {
             if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              console.log('[SW] New service worker available');
+              // New service worker available
             }
           });
         });
@@ -48,11 +46,10 @@ if ('serviceWorker' in navigator) {
         if (window.location.hostname === '127.0.0.1' && window.location.port === '5500') {
           // For live-server, clear cache on page load to ensure fresh content
           registration.active.postMessage({ type: 'CLEAR_CACHE' });
-          console.log('[SW] Cache cleared for live-server context');
         }
       })
       .catch((error) => {
-        console.error('[SW] Service Worker registration failed:', error);
+        // Service Worker registration failed - silent fail for production
       });
   });
 }
@@ -66,11 +63,21 @@ if ('serviceWorker' in navigator) {
     const originalHref = cssLink.href;
     const separator = originalHref.includes('?') ? '&' : '?';
     cssLink.href = originalHref + separator + 'v=' + Date.now();
-    console.log('[CSS] Cache-busting applied for development server');
+    // Cache-busting applied for development server
   }
 })();
 
 document.addEventListener('DOMContentLoaded', () => {
+    // --- Early Dropdown Initialization (run first) ---
+    // Ensure dropdown is closed immediately on page load
+    const earlyDropdown = document.getElementById('services-dropdown');
+    const earlyDropdownToggle = document.getElementById('services-dropdown-toggle');
+    
+    if (earlyDropdown && earlyDropdownToggle) {
+        earlyDropdown.classList.add('opacity-0', 'pointer-events-none');
+        earlyDropdown.classList.remove('opacity-100', 'pointer-events-auto');
+        earlyDropdownToggle.setAttribute('aria-expanded', 'false');
+    }
 
     // --- Theme initialization (run first) ---
     (function initializeTheme() {
@@ -230,16 +237,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (mobileServicesDropdownToggle && mobileServicesDropdown) {
             populateDropdown(mobileServicesDropdown, mobileServicesDropdownToggle);
         }
-        
-        console.log('[Mobile Menu] Opened - Click outside or press ESC to close');
     }
     
     function closeMobileMenu() {
-        // Only close mobile menu on mobile screens
-        if (!isMobileScreen()) {
-            return;
-        }
-        
         // Start overlay fade out first for smoother transition
         if (mobileMenuOverlay) {
             mobileMenuOverlay.classList.remove('opacity-100', 'pointer-events-auto');
@@ -268,13 +268,15 @@ document.addEventListener('DOMContentLoaded', () => {
             mobileServicesDropdown.classList.remove('expanded');
             mobileServicesDropdownToggle.setAttribute('aria-expanded', 'false');
         }
-        
-        console.log('[Mobile Menu] Closed');
     }
     
-    // Only add mobile menu event listeners on mobile screens
-    if (mobileMenuButton && isMobileScreen()) {
-        mobileMenuButton.addEventListener('click', () => {
+    // Mobile menu button event listener - always attach, let functions handle screen size
+    if (mobileMenuButton) {
+        mobileMenuButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Check if menu is currently hidden (translate-x-full class)
             if (mobileMenu.classList.contains('translate-x-full')) {
                 openMobileMenu();
             } else {
@@ -285,29 +287,28 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Handle window resize to ensure mobile menu behaves correctly
     let resizeTimeout;
+    let lastScreenSize = null;
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(() => {
             const currentScreenSize = getScreenSize();
-            console.log('[Mobile Menu] Screen size changed to:', currentScreenSize);
             
+            // Track screen size changes
+            if (lastScreenSize !== currentScreenSize) {
+                lastScreenSize = currentScreenSize;
+            }
+            
+            // If screen is now desktop size, close mobile menu
             if (!isMobileScreen()) {
-                // If screen is now desktop size, close mobile menu
                 closeMobileMenu();
             }
             
-            // Update mobile menu button visibility
-            if (mobileMenuButton) {
-                if (isMobileScreen()) {
-                    mobileMenuButton.style.display = 'block';
-                } else {
-                    mobileMenuButton.style.display = 'none';
-                }
-            }
+            // Let Tailwind handle button visibility - no need to manually set display
+            // The md:hidden class will handle this automatically
             
             // Adjust mobile menu width for new screen size
             adjustMobileMenuForScreenSize();
-        }, 100); // Debounce resize events
+        }, 150); // Increased debounce time for better performance
     });
     // Close mobile menu when a link is clicked (robust for nested elements)
     mobileMenu.addEventListener('click', (e) => {
@@ -327,7 +328,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && !mobileMenu.classList.contains('translate-x-full')) {
             closeMobileMenu();
-            console.log('[Mobile Menu] Closed via ESC key');
         }
     });
     
@@ -336,7 +336,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (mobileMenuOverlay) {
         mobileMenuOverlay.addEventListener('click', () => {
             closeMobileMenu();
-            console.log('[Mobile Menu] Closed via overlay click');
         });
     }
     
@@ -353,7 +352,6 @@ document.addEventListener('DOMContentLoaded', () => {
             // Close if click is NOT on hamburger, NOT inside menu, and NOT on overlay
             if (!isClickOnHamburger && !isClickInsideMenu && !isClickOnOverlay) {
                 closeMobileMenu();
-                console.log('[Mobile Menu] Closed via outside click (fallback)');
             }
         }
     });
@@ -391,7 +389,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Platform Apps Config (for navigation) ---
     const platformApps = [
       { name: 'TopiaStyler', key: 'visualEditor', url: 'https://topia-styler.vercel.app/' },
-      { name: 'Paletteniffer', key: 'paletteniffer', url: 'https://paletteniffer.vercel.app/' }
+      { name: 'Paletteniffer', key: 'paletteniffer', url: 'https://paletteniffer.vercel.app/' },
+      { name: 'Palettinum', key: 'palettinum', url: 'https://palettinum.vercel.app/' }
     ];
     // Mark the current app
     platformApps.forEach(app => {
@@ -405,6 +404,52 @@ document.addEventListener('DOMContentLoaded', () => {
     const servicesDropdown = document.getElementById('services-dropdown');
     const mobileServicesDropdownToggle = document.getElementById('mobile-services-dropdown-toggle');
     const mobileServicesDropdown = document.getElementById('mobile-services-dropdown');
+
+    // --- Desktop Services Dropdown Toggle Handler ---
+    if (servicesDropdownToggle && servicesDropdown) {
+        // Initialize dropdown state on page load
+        servicesDropdown.classList.add('opacity-0', 'pointer-events-none');
+        servicesDropdown.classList.remove('opacity-100', 'pointer-events-auto');
+        servicesDropdownToggle.setAttribute('aria-expanded', 'false');
+        
+        servicesDropdownToggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const isExpanded = servicesDropdownToggle.getAttribute('aria-expanded') === 'true';
+            
+            if (isExpanded) {
+                // Close dropdown
+                servicesDropdown.classList.remove('opacity-100', 'pointer-events-auto');
+                servicesDropdown.classList.add('opacity-0', 'pointer-events-none');
+                servicesDropdownToggle.setAttribute('aria-expanded', 'false');
+            } else {
+                // Open dropdown
+                servicesDropdown.classList.remove('opacity-0', 'pointer-events-none');
+                servicesDropdown.classList.add('opacity-100', 'pointer-events-auto');
+                servicesDropdownToggle.setAttribute('aria-expanded', 'true');
+            }
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!servicesDropdownToggle.contains(e.target) && !servicesDropdown.contains(e.target)) {
+                servicesDropdown.classList.remove('opacity-100', 'pointer-events-auto');
+                servicesDropdown.classList.add('opacity-0', 'pointer-events-none');
+                servicesDropdownToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Close dropdown on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && servicesDropdownToggle.getAttribute('aria-expanded') === 'true') {
+                servicesDropdown.classList.remove('opacity-100', 'pointer-events-auto');
+                servicesDropdown.classList.add('opacity-0', 'pointer-events-none');
+                servicesDropdownToggle.setAttribute('aria-expanded', 'false');
+                servicesDropdownToggle.focus();
+            }
+        });
+    }
 
     // --- Cross-domain theme persistence (URL param) ---
     function getCurrentTheme() {
@@ -553,44 +598,91 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (mobileMenu) {
             // Apply appropriate width based on screen size
-            switch (screenSize) {
-                case 'xs':
-                    mobileMenu.style.width = '8rem';
-                    break;
-                case 'sm':
-                    mobileMenu.style.width = '10rem';
-                    break;
-                case 'md':
-                    mobileMenu.style.width = '12rem';
-                    break;
-                case 'lg':
-                    mobileMenu.style.width = '14rem';
-                    break;
-                case 'xl':
-                    mobileMenu.style.width = '16rem';
-                    break;
-                case '2xl':
-                    mobileMenu.style.width = '18rem';
-                    break;
-                default:
-                    mobileMenu.style.width = '16rem';
-            }
+            const widthMap = {
+                'xs': '8rem',
+                'sm': '10rem',
+                'md': '12rem',
+                'lg': '14rem',
+                'xl': '16rem',
+                '2xl': '18rem',
+                'desktop': '16rem'
+            };
             
-            console.log('[Mobile Menu] Adjusted width for screen size:', screenSize);
+            const newWidth = widthMap[screenSize] || '16rem';
+            
+            // Only update if width actually changed
+            if (mobileMenu.style.width !== newWidth) {
+                mobileMenu.style.width = newWidth;
+            }
         }
     }
     window.addEventListener('resize', syncMobileMenuOverlay);
     syncMobileMenuOverlay();
     
-    // Initialize mobile menu responsiveness
+    // Initialize mobile menu responsiveness and screen size tracking
     adjustMobileMenuForScreenSize();
+    lastScreenSize = getScreenSize(); // Initialize screen size tracking
     
-    // Global error handling
+    // === BRAND NAME AND LOGO INTERACTIVITY ===
+    // Enhanced brand name and logo functionality with page reload
+    const brandName = document.querySelector('.brand-name');
+    const headerLogo = document.querySelector('header img[alt="EasOfTopia Logo"]');
+    const footerLogo = document.querySelector('footer img[alt="EasOfTopia Logo"]');
+    
+    // Brand name click handler
+    if (brandName) {
+        brandName.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.reload();
+        });
+        
+        // Keyboard navigation support for brand name
+        brandName.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                window.location.reload();
+            }
+        });
+    }
+    
+    // Header logo click handler
+    if (headerLogo) {
+        headerLogo.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.reload();
+        });
+        
+        // Keyboard navigation support for header logo
+        headerLogo.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                window.location.reload();
+            }
+        });
+    }
+    
+    // Footer logo click handler
+    if (footerLogo) {
+        footerLogo.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.reload();
+        });
+        
+        // Keyboard navigation support for footer logo
+        footerLogo.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                window.location.reload();
+            }
+        });
+    }
+
+    // Global error handling - silent for production
     window.addEventListener('error', (event) => {
-      console.error('[Global Error]', event.error);
+      // Global error handling - silent fail for production
     });
     
     window.addEventListener('unhandledrejection', (event) => {
-      console.error('[Unhandled Promise Rejection]', event.reason);
+      // Unhandled promise rejection - silent fail for production
     });
 });

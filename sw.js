@@ -57,46 +57,40 @@ function shouldCacheRequest(request) {
 
 // Install event - cache static files with enhanced error handling
 self.addEventListener('install', (event) => {
-  console.log('[SW] Installing service worker v1.2.0...');
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => {
-        console.log('[SW] Caching static files...');
         return cache.addAll(STATIC_FILES);
       })
       .then(() => {
-        console.log('[SW] Static files cached successfully');
         // Skip waiting to activate immediately
         return self.skipWaiting();
       })
       .catch((error) => {
-        console.error('[SW] Cache installation failed:', error);
+        // Cache installation failed - silent fail for production
       })
   );
 });
 
 // Activate event - clean up old caches with enhanced cleanup
 self.addEventListener('activate', (event) => {
-  console.log('[SW] Activating service worker v1.2.0...');
   event.waitUntil(
     caches.keys()
       .then((cacheNames) => {
         return Promise.all(
           cacheNames.map((cacheName) => {
             if (cacheName !== CACHE_NAME) {
-              console.log('[SW] Deleting old cache:', cacheName);
               return caches.delete(cacheName);
             }
           })
         );
       })
       .then(() => {
-        console.log('[SW] Old caches cleaned up');
         // Claim all clients immediately
         return self.clients.claim();
       })
       .catch((error) => {
-        console.error('[SW] Cache cleanup failed:', error);
+        // Cache cleanup failed - silent fail for production
       })
   );
 });
@@ -134,7 +128,7 @@ self.addEventListener('fetch', (event) => {
               caches.open(CACHE_NAME)
                 .then((cache) => cache.put(request, responseClone))
                 .catch((error) => {
-                  console.error('[SW] Failed to cache CSS:', error);
+                  // Failed to cache CSS - silent fail for production
                 });
             }
             return response;
@@ -160,7 +154,7 @@ self.addEventListener('fetch', (event) => {
             caches.open(CACHE_NAME)
               .then((cache) => cache.put(request, responseClone))
               .catch((error) => {
-                console.error('[SW] Failed to cache response:', error);
+                // Failed to cache response - silent fail for production
               });
           }
           return response;
@@ -184,7 +178,7 @@ self.addEventListener('fetch', (event) => {
             caches.open(CACHE_NAME)
               .then((cache) => cache.put(request, responseClone))
               .catch((error) => {
-                console.error('[SW] Failed to cache navigation response:', error);
+                // Failed to cache navigation response - silent fail for production
               });
           }
           return response;
@@ -213,7 +207,7 @@ self.addEventListener('fetch', (event) => {
               caches.open(CACHE_NAME)
                 .then((cache) => cache.put(request, responseClone))
                 .catch((error) => {
-                  console.error('[SW] Failed to cache static file:', error);
+                  // Failed to cache static file - silent fail for production
                 });
             }
             return response;
@@ -244,7 +238,7 @@ self.addEventListener('message', (event) => {
           );
         })
         .then(() => {
-          console.log('[SW] Cache cleared successfully');
+          // Cache cleared successfully
         })
     );
   }
