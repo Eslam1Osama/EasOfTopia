@@ -1,4 +1,4 @@
-# 🚀 EasOfTopia - Enterprise Creative Platform Hub
+# EasOfTopia - Enterprise Creative Platform Hub
 
 <div align="center">
 
