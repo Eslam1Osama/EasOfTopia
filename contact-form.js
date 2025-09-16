@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const contactModal = document.getElementById('contact-modal');
   const contactModalClose = document.getElementById('contact-modal-close');
   const contactButton = document.querySelector('a.nav-link[href="#contact"]');
+  const footerContactButton = document.querySelector('footer a.footer-link[href="#contact"]');
   let lastActiveElement = null;
 
   function openContactModal() {
@@ -26,6 +27,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   if (contactButton) {
     contactButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      openContactModal();
+    });
+  }
+  
+  // Footer contact button modal functionality
+  if (footerContactButton) {
+    footerContactButton.addEventListener('click', (e) => {
       e.preventDefault();
       openContactModal();
     });

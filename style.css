@@ -416,14 +416,14 @@ html {
 /* === MS PAINT STYLE WAVE SYSTEM === */
 /* Classic wave implementation mimicking traditional MS Paint wave drawings */
 
-/* Primary wave layer - Enhanced colorful wave with ultra-smooth color fading */
+/* Primary wave layer - Enhanced colorful wave with seamless edge coverage */
 .hero::before {
     content: '';
     position: absolute;
     bottom: 0;
-    left: -10%;
-    right: -10%;
-    width: 120%;
+    left: -15%;
+    right: -15%;
+    width: 130%;
     height: 140px;
     /* Vibrant multi-color gradient with expanded palette for maximum colorfulness */
     background: linear-gradient(135deg, 
@@ -465,14 +465,14 @@ html {
     z-index: 1;
 }
 
-/* Secondary wave layer - Enhanced colorful background wave with ultra-smooth color fading */
+/* Secondary wave layer - Enhanced colorful background wave with seamless edge coverage */
 .hero::after {
     content: '';
     position: absolute;
     bottom: 0;
-    left: -8%;
-    right: -8%;
-    width: 116%;
+    left: -12%;
+    right: -12%;
+    width: 124%;
     height: 100px;
     /* Vibrant multi-color gradient with complementary colors for maximum visual impact */
     background: linear-gradient(135deg, 
@@ -509,10 +509,10 @@ html {
     z-index: 0;
 }
 
-/* MS Paint style wave animation with smooth, seamless motion */
+/* MS Paint style wave animation with vertical-only motion for seamless coverage */
 @keyframes paint-wave-motion-smooth {
     0% {
-        transform: translateX(0) translateY(0);
+        transform: translateY(0);
         clip-path: polygon(
             8.33% 100%, 
             8.33% 80%, 
@@ -533,7 +533,7 @@ html {
         );
     }
     25% {
-        transform: translateX(-2%) translateY(-1px);
+        transform: translateY(-1px);
         clip-path: polygon(
             8.33% 100%, 
             8.33% 79%, 
@@ -554,7 +554,7 @@ html {
         );
     }
     50% {
-        transform: translateX(-4%) translateY(-2px);
+        transform: translateY(-2px);
         clip-path: polygon(
             8.33% 100%, 
             8.33% 78%, 
@@ -575,7 +575,7 @@ html {
         );
     }
     75% {
-        transform: translateX(-2%) translateY(-1px);
+        transform: translateY(-1px);
         clip-path: polygon(
             8.33% 100%, 
             8.33% 79%, 
@@ -596,7 +596,7 @@ html {
         );
     }
     100% {
-        transform: translateX(0) translateY(0);
+        transform: translateY(0);
         clip-path: polygon(
             8.33% 100%, 
             8.33% 80%, 
@@ -2442,89 +2442,444 @@ body.mobile-menu-open {
 
 
 
-/* --- Contact Modal & Form Styles --- */
+/* === ENHANCED RESPONSIVE CONTACT MODAL SYSTEM === */
+/* Top-tier senior developer responsive implementation with comprehensive breakpoints */
+
 #contact-modal {
+  /* === BASE POSITIONING === */
   position: fixed;
   bottom: 1.5rem;
   right: 1.5rem;
   max-width: 420px;
-  min-width: 0;
-  width: 100%;
+  min-width: 280px;
+  width: calc(100vw - 3rem);
+  
+  /* === VISUAL DESIGN === */
   background: #fff;
   border-radius: 1.25rem;
   box-shadow: 0 8px 32px 0 rgba(31,38,135,0.10);
+  
+  /* === SPACING === */
   padding: 2rem 1.5rem 1.5rem 1.5rem;
+  
+  /* === ANIMATION STATES === */
   opacity: 0;
   pointer-events: none;
   transform: translateY(32px);
-  transition: opacity 0.3s, transform 0.3s;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+              transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* === LAYERING === */
   z-index: 100;
+  
+  /* === SCROLLING === */
   overflow-y: auto;
   max-height: 90vh;
+  
+  /* === PERFORMANCE === */
+  will-change: opacity, transform;
+  backface-visibility: hidden;
 }
+
+/* === MODAL OPEN STATE === */
 #contact-modal.opacity-100 {
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);
 }
-@media (max-width: 900px) {
+
+/* === COMPREHENSIVE RESPONSIVE BREAKPOINTS === */
+
+/* Large desktops and ultrawide screens */
+@media (min-width: 1440px) {
   #contact-modal {
-    max-width: 98vw;
-    right: 0.5rem;
-    left: 0.5rem;
-    bottom: 0.5rem;
-    padding: 1.25rem 0.5rem 1rem 0.5rem;
+    max-width: 480px;
+    padding: 2.5rem 2rem 2rem 2rem;
+    bottom: 2rem;
+    right: 2rem;
   }
 }
-@media (max-width: 600px) {
+
+/* Standard desktops */
+@media (min-width: 1200px) and (max-width: 1439px) {
   #contact-modal {
-    max-width: 100vw;
-    min-width: 0;
-    left: 0;
-    right: 0;
+    max-width: 450px;
+    padding: 2.25rem 1.75rem 1.75rem 1.75rem;
+    bottom: 1.75rem;
+    right: 1.75rem;
+  }
+}
+
+/* Large tablets and small desktops */
+@media (max-width: 1199px) {
+  #contact-modal {
+    max-width: 400px;
+    width: calc(100vw - 2.5rem);
+    padding: 1.75rem 1.25rem 1.25rem 1.25rem;
+    bottom: 1.25rem;
+    right: 1.25rem;
+  }
+}
+
+/* Standard tablets */
+@media (max-width: 1024px) {
+  #contact-modal {
+    max-width: 380px;
+    width: calc(100vw - 2rem);
+    padding: 1.5rem 1rem 1rem 1rem;
+    bottom: 1rem;
+    right: 1rem;
+    left: 1rem;
+    margin: 0 auto;
+  }
+}
+
+/* Large phones and small tablets */
+@media (max-width: 900px) {
+  #contact-modal {
+    max-width: 100%;
+    width: calc(100vw - 1.5rem);
+    padding: 1.25rem 1rem 1rem 1rem;
+    bottom: 0.75rem;
+    right: 0.75rem;
+    left: 0.75rem;
+    border-radius: 1rem;
+  }
+}
+
+/* Standard phones */
+@media (max-width: 768px) {
+  #contact-modal {
+    width: calc(100vw - 1rem);
+    padding: 1rem 0.75rem 0.75rem 0.75rem;
+    bottom: 0.5rem;
+    right: 0.5rem;
+    left: 0.5rem;
+    border-radius: 0.875rem;
+    max-height: 85vh;
+  }
+}
+
+/* Large phones */
+@media (max-width: 640px) {
+  #contact-modal {
+    width: calc(100vw - 0.75rem);
+    padding: 0.875rem 0.625rem 0.625rem 0.625rem;
+    bottom: 0.375rem;
+    right: 0.375rem;
+    left: 0.375rem;
+    border-radius: 0.75rem;
+    max-height: 80vh;
+  }
+}
+
+/* Medium phones */
+@media (max-width: 480px) {
+  #contact-modal {
+    width: calc(100vw - 0.5rem);
+    padding: 0.75rem 0.5rem 0.5rem 0.5rem;
+    bottom: 0.25rem;
+    right: 0.25rem;
+    left: 0.25rem;
+    border-radius: 0.625rem;
+    max-height: 75vh;
+  }
+}
+
+/* Small phones */
+@media (max-width: 375px) {
+  #contact-modal {
+    width: 100vw;
+    padding: 0.625rem 0.375rem 0.375rem 0.375rem;
     bottom: 0;
-    border-radius: 1rem 1rem 0 0;
-    padding: 1rem 0.25rem 0.5rem 0.25rem;
+    right: 0;
+    left: 0;
+    border-radius: 0.5rem 0.5rem 0 0;
+    max-height: 70vh;
+  }
+}
+
+/* Extra small phones */
+@media (max-width: 320px) {
+  #contact-modal {
+    padding: 0.5rem 0.25rem 0.25rem 0.25rem;
+    border-radius: 0.375rem 0.375rem 0 0;
+    max-height: 65vh;
   }
 }
 .dark #contact-modal {
   background: #181c2f;
   box-shadow: 0 8px 32px 0 rgba(124,58,237,0.10);
 }
+/* === ENHANCED RESPONSIVE TYPOGRAPHY === */
 #contact-modal .section-subtitle {
+  /* === BASE STYLING === */
   display: block;
   text-align: left;
   color: #7c3aed;
   font-weight: 500;
   margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
+
 #contact-modal .section-title {
+  /* === BASE STYLING === */
   text-align: left;
   color: #7c3aed;
   margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  
+  /* === OVERRIDE GRADIENT STYLES === */
   background: none;
   -webkit-background-clip: initial;
   -webkit-text-fill-color: initial;
   background-clip: initial;
   text-shadow: none;
 }
+
+/* === RESPONSIVE TYPOGRAPHY ENHANCEMENTS === */
+
+/* Large desktops and ultrawide screens */
+@media (min-width: 1440px) {
+  #contact-modal .section-subtitle {
+    font-size: 0.9375rem;
+    margin-bottom: 1.75rem;
+  }
+  #contact-modal .section-title {
+    font-size: 1.75rem;
+    margin-bottom: 0.75rem;
+  }
+}
+
+/* Standard desktops */
+@media (min-width: 1200px) and (max-width: 1439px) {
+  #contact-modal .section-subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 1.625rem;
+  }
+  #contact-modal .section-title {
+    font-size: 1.625rem;
+    margin-bottom: 0.625rem;
+  }
+}
+
+/* Large tablets and small desktops */
+@media (max-width: 1199px) {
+  #contact-modal .section-subtitle {
+    font-size: 0.875rem;
+    margin-bottom: 1.5rem;
+  }
+  #contact-modal .section-title {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* Standard tablets */
+@media (max-width: 1024px) {
+  #contact-modal .section-subtitle {
+    font-size: 0.875rem;
+    margin-bottom: 1.25rem;
+  }
+  #contact-modal .section-title {
+    font-size: 1.375rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* Large phones and small tablets */
+@media (max-width: 900px) {
+  #contact-modal .section-subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+  #contact-modal .section-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* Standard phones */
+@media (max-width: 768px) {
+  #contact-modal .section-subtitle {
+    font-size: 0.9375rem;
+    margin-bottom: 0.875rem;
+  }
+  #contact-modal .section-title {
+    font-size: 1.125rem;
+    margin-bottom: 0.375rem;
+  }
+}
+
+/* Large phones */
+@media (max-width: 640px) {
+  #contact-modal .section-subtitle {
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+  }
+  #contact-modal .section-title {
+    font-size: 1rem;
+    margin-bottom: 0.375rem;
+  }
+}
+
+/* Medium phones */
+@media (max-width: 480px) {
+  #contact-modal .section-subtitle {
+    font-size: 1.0625rem;
+    margin-bottom: 0.625rem;
+  }
+  #contact-modal .section-title {
+    font-size: 0.9375rem;
+    margin-bottom: 0.25rem;
+  }
+}
+
+/* Small phones */
+@media (max-width: 375px) {
+  #contact-modal .section-subtitle {
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+  }
+  #contact-modal .section-title {
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+  }
+}
+
+/* Extra small phones */
+@media (max-width: 320px) {
+  #contact-modal .section-subtitle {
+    font-size: 1.1875rem;
+    margin-bottom: 0.375rem;
+  }
+  #contact-modal .section-title {
+    font-size: 0.8125rem;
+    margin-bottom: 0.125rem;
+  }
+}
 .dark #contact-modal .section-title, .dark #contact-modal .section-subtitle {
   color: #b9fbc0;
 }
+/* === ENHANCED RESPONSIVE FORM GROUPS === */
 #contact-modal .form-group {
+  /* === BASE STYLING === */
   margin-bottom: 1.5rem;
   text-align: left;
+  position: relative;
+}
+
+/* === RESPONSIVE FORM GROUP SPACING === */
+
+/* Large desktops and ultrawide screens */
+@media (min-width: 1440px) {
+  #contact-modal .form-group {
+    margin-bottom: 1.75rem;
+  }
+}
+
+/* Standard desktops */
+@media (min-width: 1200px) and (max-width: 1439px) {
+  #contact-modal .form-group {
+    margin-bottom: 1.625rem;
+  }
+}
+
+/* Large tablets and small desktops */
+@media (max-width: 1199px) {
+  #contact-modal .form-group {
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* Standard tablets */
+@media (max-width: 1024px) {
+  #contact-modal .form-group {
+    margin-bottom: 1.25rem;
+  }
+}
+
+/* Large phones and small tablets */
+@media (max-width: 900px) {
+  #contact-modal .form-group {
+    margin-bottom: 1rem;
+  }
+}
+
+/* Standard phones */
+@media (max-width: 768px) {
+  #contact-modal .form-group {
+    margin-bottom: 0.875rem;
+  }
+}
+
+/* Large phones */
+@media (max-width: 640px) {
+  #contact-modal .form-group {
+    margin-bottom: 0.75rem;
+  }
+}
+
+/* Medium phones */
+@media (max-width: 480px) {
+  #contact-modal .form-group {
+    margin-bottom: 0.625rem;
+  }
+}
+
+/* Small phones */
+@media (max-width: 375px) {
+  #contact-modal .form-group {
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* Extra small phones */
+@media (max-width: 320px) {
+  #contact-modal .form-group {
+    margin-bottom: 0.375rem;
+  }
 }
 #contact-modal .form-input {
+  /* === BASE STYLING === */
   width: 100%;
-  padding: 14px;
+  min-height: 44px; /* Touch-friendly minimum height */
+  padding: 12px 16px;
   border-radius: 8px;
   border: 1.5px solid #e0e7ef;
   background: #f9fafd;
+  
+  /* === TYPOGRAPHY === */
   font-family: inherit;
   font-size: 1rem;
+  line-height: 1.5;
   color: #0A192F;
-  transition: border-color 0.3s, box-shadow 0.3s;
+  
+  /* === INTERACTIONS === */
+  transition: border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* === ACCESSIBILITY === */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  
+  /* === PERFORMANCE === */
+  will-change: border-color, box-shadow, background-color;
+}
+
+/* === TEXTAREA SPECIFIC STYLING === */
+#contact-modal .form-input[type="textarea"],
+#contact-modal textarea.form-input {
+  min-height: 120px;
+  resize: vertical;
+  font-family: inherit;
 }
 .dark #contact-modal .form-input {
   background: #232946;
@@ -2535,6 +2890,143 @@ body.mobile-menu-open {
   border-color: #7c3aed;
   box-shadow: 0 0 0 3px rgba(124,58,237,0.12);
   outline: none;
+  background-color: #fff;
+}
+
+.dark #contact-modal .form-input:focus {
+  background-color: #2e325a;
+}
+
+/* === RESPONSIVE FORM INPUT ENHANCEMENTS === */
+
+/* Large desktops and ultrawide screens */
+@media (min-width: 1440px) {
+  #contact-modal .form-input {
+    padding: 16px 20px;
+    font-size: 1.125rem;
+    min-height: 48px;
+  }
+  #contact-modal .form-input[type="textarea"],
+  #contact-modal textarea.form-input {
+    min-height: 140px;
+  }
+}
+
+/* Standard desktops */
+@media (min-width: 1200px) and (max-width: 1439px) {
+  #contact-modal .form-input {
+    padding: 14px 18px;
+    font-size: 1.0625rem;
+    min-height: 46px;
+  }
+  #contact-modal .form-input[type="textarea"],
+  #contact-modal textarea.form-input {
+    min-height: 130px;
+  }
+}
+
+/* Large tablets and small desktops */
+@media (max-width: 1199px) {
+  #contact-modal .form-input {
+    padding: 12px 16px;
+    font-size: 1rem;
+    min-height: 44px;
+  }
+  #contact-modal .form-input[type="textarea"],
+  #contact-modal textarea.form-input {
+    min-height: 120px;
+  }
+}
+
+/* Standard tablets */
+@media (max-width: 1024px) {
+  #contact-modal .form-input {
+    padding: 12px 16px;
+    font-size: 1rem;
+    min-height: 44px;
+  }
+  #contact-modal .form-input[type="textarea"],
+  #contact-modal textarea.form-input {
+    min-height: 120px;
+  }
+}
+
+/* Large phones and small tablets */
+@media (max-width: 900px) {
+  #contact-modal .form-input {
+    padding: 14px 16px;
+    font-size: 1rem;
+    min-height: 48px; /* Larger touch target for mobile */
+  }
+  #contact-modal .form-input[type="textarea"],
+  #contact-modal textarea.form-input {
+    min-height: 130px;
+  }
+}
+
+/* Standard phones */
+@media (max-width: 768px) {
+  #contact-modal .form-input {
+    padding: 16px 18px;
+    font-size: 1rem;
+    min-height: 52px; /* Even larger for better mobile UX */
+  }
+  #contact-modal .form-input[type="textarea"],
+  #contact-modal textarea.form-input {
+    min-height: 140px;
+  }
+}
+
+/* Large phones */
+@media (max-width: 640px) {
+  #contact-modal .form-input {
+    padding: 18px 20px;
+    font-size: 1.0625rem;
+    min-height: 56px;
+  }
+  #contact-modal .form-input[type="textarea"],
+  #contact-modal textarea.form-input {
+    min-height: 150px;
+  }
+}
+
+/* Medium phones */
+@media (max-width: 480px) {
+  #contact-modal .form-input {
+    padding: 20px 22px;
+    font-size: 1.125rem;
+    min-height: 60px;
+  }
+  #contact-modal .form-input[type="textarea"],
+  #contact-modal textarea.form-input {
+    min-height: 160px;
+  }
+}
+
+/* Small phones */
+@media (max-width: 375px) {
+  #contact-modal .form-input {
+    padding: 22px 24px;
+    font-size: 1.125rem;
+    min-height: 64px;
+  }
+  #contact-modal .form-input[type="textarea"],
+  #contact-modal textarea.form-input {
+    min-height: 170px;
+  }
+}
+
+/* Extra small phones */
+@media (max-width: 320px) {
+  #contact-modal .form-input {
+    padding: 24px 26px;
+    font-size: 1.1875rem;
+    min-height: 68px;
+  }
+  #contact-modal .form-input[type="textarea"],
+  #contact-modal textarea.form-input {
+    min-height: 180px;
+  }
 }
 #contact-modal .form-help {
   color: #888;
@@ -2575,21 +3067,144 @@ body.mobile-menu-open {
   transform: translateY(0);
 }
 #contact-modal .cta-button {
+  /* === BASE STYLING === */
   display: inline-block;
   width: 100%;
+  min-height: 48px; /* Touch-friendly minimum height */
   background: linear-gradient(90deg, #7c3aed, #f472b6);
   color: #fff;
   padding: 14px 0;
   border-radius: 8px;
+  
+  /* === TYPOGRAPHY === */
   text-decoration: none;
   font-weight: 500;
   font-size: 1.1rem;
+  line-height: 1.4;
+  
+  /* === VISUAL EFFECTS === */
   box-shadow: 0 4px 15px rgba(124,58,237,0.10);
   border: none;
-  transition: transform 0.3s, box-shadow 0.3s, opacity 0.3s;
+  
+  /* === INTERACTIONS === */
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+              opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
+  
+  /* === LAYOUT === */
   position: relative;
   overflow: hidden;
+  
+  /* === ACCESSIBILITY === */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  
+  /* === PERFORMANCE === */
+  will-change: transform, box-shadow, opacity;
+}
+
+/* === RESPONSIVE SUBMIT BUTTON ENHANCEMENTS === */
+
+/* Large desktops and ultrawide screens */
+@media (min-width: 1440px) {
+  #contact-modal .cta-button {
+    padding: 16px 0;
+    font-size: 1.125rem;
+    min-height: 52px;
+    border-radius: 10px;
+  }
+}
+
+/* Standard desktops */
+@media (min-width: 1200px) and (max-width: 1439px) {
+  #contact-modal .cta-button {
+    padding: 15px 0;
+    font-size: 1.0625rem;
+    min-height: 50px;
+    border-radius: 9px;
+  }
+}
+
+/* Large tablets and small desktops */
+@media (max-width: 1199px) {
+  #contact-modal .cta-button {
+    padding: 14px 0;
+    font-size: 1.1rem;
+    min-height: 48px;
+    border-radius: 8px;
+  }
+}
+
+/* Standard tablets */
+@media (max-width: 1024px) {
+  #contact-modal .cta-button {
+    padding: 14px 0;
+    font-size: 1.1rem;
+    min-height: 48px;
+    border-radius: 8px;
+  }
+}
+
+/* Large phones and small tablets */
+@media (max-width: 900px) {
+  #contact-modal .cta-button {
+    padding: 16px 0;
+    font-size: 1.125rem;
+    min-height: 52px;
+    border-radius: 8px;
+  }
+}
+
+/* Standard phones */
+@media (max-width: 768px) {
+  #contact-modal .cta-button {
+    padding: 18px 0;
+    font-size: 1.125rem;
+    min-height: 56px;
+    border-radius: 8px;
+  }
+}
+
+/* Large phones */
+@media (max-width: 640px) {
+  #contact-modal .cta-button {
+    padding: 20px 0;
+    font-size: 1.1875rem;
+    min-height: 60px;
+    border-radius: 10px;
+  }
+}
+
+/* Medium phones */
+@media (max-width: 480px) {
+  #contact-modal .cta-button {
+    padding: 22px 0;
+    font-size: 1.25rem;
+    min-height: 64px;
+    border-radius: 10px;
+  }
+}
+
+/* Small phones */
+@media (max-width: 375px) {
+  #contact-modal .cta-button {
+    padding: 24px 0;
+    font-size: 1.25rem;
+    min-height: 68px;
+    border-radius: 12px;
+  }
+}
+
+/* Extra small phones */
+@media (max-width: 320px) {
+  #contact-modal .cta-button {
+    padding: 26px 0;
+    font-size: 1.3125rem;
+    min-height: 72px;
+    border-radius: 12px;
+  }
 }
 #contact-modal .cta-button:disabled,
 #contact-modal .cta-button.disabled {
@@ -2643,6 +3258,204 @@ body.mobile-menu-open {
   margin: 0 !important;
   border: none !important;
   min-height: 0 !important;
+}
+
+/* === ENHANCED RESPONSIVE CLOSE BUTTON === */
+#contact-modal-close {
+  /* === BASE STYLING === */
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 44px; /* Touch-friendly minimum size */
+  height: 44px;
+  padding: 0;
+  border-radius: 50%;
+  background: #f3f4f6;
+  border: none;
+  cursor: pointer;
+  
+  /* === ICON STYLING === */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* === INTERACTIONS === */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* === ACCESSIBILITY === */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  
+  /* === PERFORMANCE === */
+  will-change: transform, background-color, box-shadow;
+}
+
+#contact-modal-close:hover {
+  background: #e5e7eb;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+#contact-modal-close:active {
+  transform: scale(0.95);
+}
+
+.dark #contact-modal-close {
+  background: #374151;
+  color: #d1d5db;
+}
+
+.dark #contact-modal-close:hover {
+  background: #4b5563;
+}
+
+#contact-modal-close svg {
+  width: 20px;
+  height: 20px;
+  stroke-width: 2.5;
+}
+
+/* === RESPONSIVE CLOSE BUTTON ENHANCEMENTS === */
+
+/* Large desktops and ultrawide screens */
+@media (min-width: 1440px) {
+  #contact-modal-close {
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 48px;
+    height: 48px;
+  }
+  #contact-modal-close svg {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+/* Standard desktops */
+@media (min-width: 1200px) and (max-width: 1439px) {
+  #contact-modal-close {
+    top: 1.25rem;
+    right: 1.25rem;
+    width: 46px;
+    height: 46px;
+  }
+  #contact-modal-close svg {
+    width: 21px;
+    height: 21px;
+  }
+}
+
+/* Large tablets and small desktops */
+@media (max-width: 1199px) {
+  #contact-modal-close {
+    top: 1rem;
+    right: 1rem;
+    width: 44px;
+    height: 44px;
+  }
+  #contact-modal-close svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* Standard tablets */
+@media (max-width: 1024px) {
+  #contact-modal-close {
+    top: 0.875rem;
+    right: 0.875rem;
+    width: 42px;
+    height: 42px;
+  }
+  #contact-modal-close svg {
+    width: 19px;
+    height: 19px;
+  }
+}
+
+/* Large phones and small tablets */
+@media (max-width: 900px) {
+  #contact-modal-close {
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 40px;
+    height: 40px;
+  }
+  #contact-modal-close svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* Standard phones */
+@media (max-width: 768px) {
+  #contact-modal-close {
+    top: 0.625rem;
+    right: 0.625rem;
+    width: 48px; /* Larger for mobile touch */
+    height: 48px;
+  }
+  #contact-modal-close svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* Large phones */
+@media (max-width: 640px) {
+  #contact-modal-close {
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 52px; /* Even larger for better mobile UX */
+    height: 52px;
+  }
+  #contact-modal-close svg {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+/* Medium phones */
+@media (max-width: 480px) {
+  #contact-modal-close {
+    top: 0.375rem;
+    right: 0.375rem;
+    width: 56px;
+    height: 56px;
+  }
+  #contact-modal-close svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+/* Small phones */
+@media (max-width: 375px) {
+  #contact-modal-close {
+    top: 0.25rem;
+    right: 0.25rem;
+    width: 60px;
+    height: 60px;
+  }
+  #contact-modal-close svg {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+/* Extra small phones */
+@media (max-width: 320px) {
+  #contact-modal-close {
+    top: 0.125rem;
+    right: 0.125rem;
+    width: 64px;
+    height: 64px;
+  }
+  #contact-modal-close svg {
+    width: 28px;
+    height: 28px;
+  }
 }
 
 
