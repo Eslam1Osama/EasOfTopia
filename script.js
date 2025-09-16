@@ -128,15 +128,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const updateIcons = (isDarkMode) => {
         if (isDarkMode) {
-            darkIcon.classList.remove('hidden');
-            lightIcon.classList.add('hidden');
-            mobileDarkIcon.classList.remove('hidden');
-            mobileLightIcon.classList.add('hidden');
-        } else {
+            // Dark mode: show sun icon (to switch to light)
             darkIcon.classList.add('hidden');
             lightIcon.classList.remove('hidden');
             mobileDarkIcon.classList.add('hidden');
             mobileLightIcon.classList.remove('hidden');
+        } else {
+            // Light mode: show moon icon (to switch to dark)
+            darkIcon.classList.remove('hidden');
+            lightIcon.classList.add('hidden');
+            mobileDarkIcon.classList.remove('hidden');
+            mobileLightIcon.classList.add('hidden');
         }
     };
 
